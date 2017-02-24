@@ -13,26 +13,26 @@
     
     
     
-    <title>python-closure | ThinLin | 意义大于目的</title>
+    <title>Python中的闭包 | ThinLin | 意义大于目的</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="python, 闭包">
+    <meta name="keywords" content="python,闭包">
     <meta name="description" content="什么是闭包闭包这个概念，在函数式编程语言用的非常多，由于Python也具有一定的函数式编程的能力，自然也就会有闭包了。
 我们先来看看闭包是啥。简而言之，即某个函数A返回一个函数B，但函数B包含一些函数A中的变量。用Python代码表示为：
 123456789def line_config(k, b):    def line(x):        return k*x+b    return li">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python-closure">
+<meta property="og:title" content="Python中的闭包">
 <meta property="og:url" content="http://iskcal.github.io/2017/02/24/python-closure/index.html">
 <meta property="og:site_name" content="ThinLin">
 <meta property="og:description" content="什么是闭包闭包这个概念，在函数式编程语言用的非常多，由于Python也具有一定的函数式编程的能力，自然也就会有闭包了。
 我们先来看看闭包是啥。简而言之，即某个函数A返回一个函数B，但函数B包含一些函数A中的变量。用Python代码表示为：
 123456789def line_config(k, b):    def line(x):        return k*x+b    return li">
-<meta property="og:updated_time" content="2017-02-24T08:43:43.000Z">
+<meta property="og:updated_time" content="2017-02-24T08:49:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python-closure">
+<meta name="twitter:title" content="Python中的闭包">
 <meta name="twitter:description" content="什么是闭包闭包这个概念，在函数式编程语言用的非常多，由于Python也具有一定的函数式编程的能力，自然也就会有闭包了。
 我们先来看看闭包是啥。简而言之，即某个函数A返回一个函数B，但函数B包含一些函数A中的变量。用Python代码表示为：
 123456789def line_config(k, b):    def line(x):        return k*x+b    return li">
@@ -105,7 +105,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">python-closure</div>
+        <div class="flex-col header-title ellipsis">Python中的闭包</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -127,13 +127,15 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">python-closure</h1>
+        <h1 class="title">Python中的闭包</h1>
         <h5 class="subtitle">
             
                 <time datetime="2017-02-24T06:45:27.000Z" itemprop="datePublished" class="page-time">
   2017-02-24
 </time>
 
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
 
             
         </h5>
@@ -157,11 +159,13 @@
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">python-closure</h1>
+        <h1 class="post-card-title">Python中的闭包</h1>
         <div class="post-meta">
             <time class="post-time" title="2017年02月24日 14:45" datetime="2017-02-24T06:45:27.000Z"  itemprop="datePublished">2017-02-24</time>
 
             
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
 
 
             
@@ -184,7 +188,7 @@
 <p>这是一个闭包非常常用且实际的例子，这里的闭包用于记录传入的函数（Python中可以把函数当作对象传入函数中）被调用多少次。这里其实有一点装饰器的影子。注意内部的函数，nonlocal语句用于查找其自由变量，接下来的语句就是对其进行修改赋值，再然后执行传入的函数，输出次数，逻辑就这么多。可以看到使用闭包后，可以对任意一个函数记录其次数，但是仍有漏洞，如果调用原来的<code>testFunction</code>，发现并不会记录次数。改进的方法也很简单，只需要把<code>callTime</code>改成原来的<code>testFunction</code>即可，即第15行改为<code>testFunction = recordCall(testFunction)</code>，那么在此之后，任意地方调用<code>testFunction()</code>都会记录次数并输出次数。</p>
 <h1 id="循环与闭包"><a href="#循环与闭包" class="headerlink" title="循环与闭包"></a>循环与闭包</h1><p>在闭包这里，还需要说明的一点是，闭包只保存自由变量，并不保存自由变量的值。当调用内部函数时，才会去寻找自由变量的值。这点非常具有迷惑性，下面就是一个例子。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">()</span>:</span></div><div class="line">    arr = []</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">square</span><span class="params">()</span>:</span></div><div class="line">            <span class="keyword">return</span> i*i</div><div class="line">        arr.append(square)</div><div class="line">    <span class="keyword">return</span> arr</div><div class="line"></div><div class="line">result = wrapper()</div><div class="line">print(result[<span class="number">0</span>]()) <span class="comment"># 输出 4</span></div><div class="line">print(result[<span class="number">1</span>]()) <span class="comment"># 输出 4</span></div><div class="line">print(result[<span class="number">2</span>]()) <span class="comment"># 输出 4</span></div></pre></td></tr></table></figure>
-<p>头有点大，我们慢慢来看。首先先不管<code>square</code>函数，我们先只看<code>wrapper</code>函数，这个函数很一般，我们定义了一个列表<code>arr</code>，并用循环<br>向内部添加了3个东西。之后，再看<code>square</code>函数，它定义在循环体内部，列表添加的是函数而不是值（<code>append</code>函数内部参数是<code>square</code>而不是<code>square()</code>，前者是函数，后者是值）。然后，函数的计算方式是序号的平方。最后调用这个函数，输出三个值，但是发现这三个值并不是 0,1,4 而是 4,4,4。这和我们的思考方式并不一样。</p>
+<p>头有点大，我们慢慢来看。首先先不管<code>square</code>函数，我们先只看<code>wrapper</code>函数，这个函数很一般，我们定义了一个列表<code>arr</code>，并用循环向内部添加了3个东西。之后，再看<code>square</code>函数，它定义在循环体内部，列表添加的是函数而不是值（<code>append</code>函数内部参数是<code>square</code>而不是<code>square()</code>，前者是函数，后者是值）。然后，函数的计算方式是序号的平方。最后调用这个函数，输出三个值，但是发现这三个值并不是 0,1,4 而是 4,4,4。这和我们的思考方式并不一样。</p>
 <p>当然了，这里已经说过了自由变量会在调用的时候才会去查找相关值。因此，在第一次调用<code>result[0]()</code>这个函数时，它才会寻找<code>i</code>的值，此时i的值为2，返回4。之后几次调用，由于<code>i</code>值不变，因而都会返回4。如果要想实现我们之前所想的功能，只需要使用给定默认值即可，如下面代码，Python会在调用时保存相关的<code>i</code>值数据。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 默认参数</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">()</span>:</span></div><div class="line">    arr = []</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">square</span><span class="params">(i=i)</span>:</span></div><div class="line">            <span class="keyword">return</span> i*i</div><div class="line">        arr.append(square)</div><div class="line">    <span class="keyword">return</span> arr</div><div class="line"></div><div class="line">result = wrapper()</div><div class="line">print(result[<span class="number">0</span>]()) <span class="comment"># 输出 0</span></div><div class="line">print(result[<span class="number">1</span>]()) <span class="comment"># 输出 1</span></div><div class="line">print(result[<span class="number">2</span>]()) <span class="comment"># 输出 4</span></div></pre></td></tr></table></figure>
 
@@ -194,7 +198,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-02-24T08:43:43.000Z" itemprop="dateUpdated">2017年2月24日 16:43</time>
+    最后更新时间：<time datetime="2017-02-24T08:49:36.000Z" itemprop="dateUpdated">2017年2月24日 16:49</time>
 </span><br>
 
 
@@ -213,7 +217,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python-闭包/">python, 闭包</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/闭包/">闭包</a></li></ul>
 
 
             
@@ -223,7 +227,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/24/python-closure/&title=《python-closure》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/24/python-closure/&title=《Python中的闭包》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -233,7 +237,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/24/python-closure/&title=《python-closure》 — ThinLin&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/24/python-closure/&title=《Python中的闭包》 — ThinLin&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -243,7 +247,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python-closure》 — ThinLin&url=http://iskcal.github.io/2017/02/24/python-closure/&via=http://iskcal.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python中的闭包》 — ThinLin&url=http://iskcal.github.io/2017/02/24/python-closure/&via=http://iskcal.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -286,7 +290,7 @@
     
 
 <div class="comments" id="comments">
-    <div class="ds-thread" data-thread-key="python-closure" data-title="python-closure" data-url="http://iskcal.github.io/2017/02/24/python-closure/"></div>
+    <div class="ds-thread" data-thread-key="python-closure" data-title="Python中的闭包" data-url="http://iskcal.github.io/2017/02/24/python-closure/"></div>
 </div>
 <script>
 lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
@@ -335,7 +339,7 @@ lazyScripts.push('/js/embed.min.js?v=1.4.7');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/24/python-closure/&title=《python-closure》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/24/python-closure/&title=《Python中的闭包》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -345,7 +349,7 @@ lazyScripts.push('/js/embed.min.js?v=1.4.7');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/24/python-closure/&title=《python-closure》 — ThinLin&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/24/python-closure/&title=《Python中的闭包》 — ThinLin&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -355,7 +359,7 @@ lazyScripts.push('/js/embed.min.js?v=1.4.7');
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python-closure》 — ThinLin&url=http://iskcal.github.io/2017/02/24/python-closure/&via=http://iskcal.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python中的闭包》 — ThinLin&url=http://iskcal.github.io/2017/02/24/python-closure/&via=http://iskcal.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
