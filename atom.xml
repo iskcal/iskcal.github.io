@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iskcal.github.io/"/>
-  <updated>2017-02-26T12:56:14.000Z</updated>
+  <updated>2017-02-26T13:40:11.733Z</updated>
   <id>http://iskcal.github.io/</id>
   
   <author>
@@ -14,6 +14,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python函数中*号作用</title>
+    <link href="http://iskcal.github.io/2017/02/26/python-star/"/>
+    <id>http://iskcal.github.io/2017/02/26/python-star/</id>
+    <published>2017-02-26T13:21:54.000Z</published>
+    <updated>2017-02-26T13:40:11.733Z</updated>
+    
+    <content type="html"><![CDATA[<p>Python中既可以在实参中使用<code>*</code>，也可以在形参中使用<code>*</code>。</p>
+<h1 id="形参中使用星号"><a href="#形参中使用星号" class="headerlink" title="形参中使用星号"></a>形参中使用星号</h1><p>这种使用方式比较常见。它可以看成是实参的打包。即该形参变量对应多个实参。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">function1</span><span class="params">(*a, **b)</span>:</span></div><div class="line">    print(a)</div><div class="line">    print(b)</div><div class="line"></div><div class="line">func(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,x=<span class="number">10</span>,y=<span class="number">11</span>)</div><div class="line"><span class="comment"># 输出</span></div><div class="line"><span class="comment"># (1,2,3)</span></div><div class="line"><span class="comment"># &#123;'x': 10, 'y': 11&#125;</span></div></pre></td></tr></table></figure>
+<h1 id="实参中使用星号"><a href="#实参中使用星号" class="headerlink" title="实参中使用星号"></a>实参中使用星号</h1><p>这种使用方式并不太常见。它可以看成是实参的解包。即一个实参对应多个形参</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">function2</span><span class="params">(a, b, c, x, y)</span>:</span></div><div class="line">    print(<span class="string">"%s %s %s %s %s"</span> % (a, b, c, x, y))</div><div class="line"></div><div class="line">p1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line">p2 = &#123;<span class="string">'x'</span>: <span class="number">10</span>, <span class="string">'y'</span>: <span class="number">11</span>&#125;</div><div class="line"></div><div class="line">function2(*p1, **p2)</div><div class="line"><span class="comment"># 输出：1 2 3 10 11</span></div></pre></td></tr></table></figure>
+<p>这种方式常用于配置信息中，比如说被调用函数只需要它所要的配置信息数据，而调用时可以把整个配置信息字典传过去，方便代码编写。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Python中既可以在实参中使用&lt;code&gt;*&lt;/code&gt;，也可以在形参中使用&lt;code&gt;*&lt;/code&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;形参中使用星号&quot;&gt;&lt;a href=&quot;#形参中使用星号&quot; class=&quot;headerlink&quot; title=&quot;形参中使用星号&quot;&gt;&lt;/a&gt;形参
+    
+    </summary>
+    
+      <category term="wiki" scheme="http://iskcal.github.io/categories/wiki/"/>
+    
+    
+      <category term="python" scheme="http://iskcal.github.io/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>kindle</title>

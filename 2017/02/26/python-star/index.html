@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>python函数中*号作用 | ThinLin | 意义大于目的</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="python">
+    <meta name="description" content="Python中既可以在实参中使用*，也可以在形参中使用*。
+形参中使用星号这种使用方式比较常见。它可以看成是实参的打包。即该形参变量对应多个实参。
+12345678def function1(*a, **b):    print(a)    print(b)func(1,2,3,x=10,y=11)# 输出# (1,2,3)# &amp;#123;&apos;x&apos;: 10, &apos;y&apos;: 11&amp;#125;
+实参中使用星">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python函数中*号作用">
+<meta property="og:url" content="http://iskcal.github.io/2017/02/26/python-star/index.html">
+<meta property="og:site_name" content="ThinLin">
+<meta property="og:description" content="Python中既可以在实参中使用*，也可以在形参中使用*。
+形参中使用星号这种使用方式比较常见。它可以看成是实参的打包。即该形参变量对应多个实参。
+12345678def function1(*a, **b):    print(a)    print(b)func(1,2,3,x=10,y=11)# 输出# (1,2,3)# &amp;#123;&apos;x&apos;: 10, &apos;y&apos;: 11&amp;#125;
+实参中使用星">
+<meta property="og:updated_time" content="2017-02-26T13:40:11.733Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python函数中*号作用">
+<meta name="twitter:description" content="Python中既可以在实参中使用*，也可以在形参中使用*。
+形参中使用星号这种使用方式比较常见。它可以看成是实参的打包。即该形参变量对应多个实参。
+12345678def function1(*a, **b):    print(a)    print(b)func(1,2,3,x=10,y=11)# 输出# (1,2,3)# &amp;#123;&apos;x&apos;: 10, &apos;y&apos;: 11&amp;#125;
+实参中使用星">
+    
+        <link rel="alternative" href="/atom.xml" title="ThinLin" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Iskcal</h5>
+          <a href="mailto:linlb428@sohu.com" title="linlb428@sohu.com" class="mail">linlb428@sohu.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Blog
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">python函数中*号作用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">python函数中*号作用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-02-26T13:21:54.000Z" itemprop="datePublished" class="page-time">
+  2017-02-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/wiki/">wiki</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#形参中使用星号"><span class="post-toc-number">1.</span> <span class="post-toc-text">形参中使用星号</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#实参中使用星号"><span class="post-toc-number">2.</span> <span class="post-toc-text">实参中使用星号</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-python-star"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">python函数中*号作用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年02月26日 21:21" datetime="2017-02-26T13:21:54.000Z"  itemprop="datePublished">2017-02-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/wiki/">wiki</a></li></ul>
+
+
+
+            
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Python中既可以在实参中使用<code>*</code>，也可以在形参中使用<code>*</code>。</p>
+<h1 id="形参中使用星号"><a href="#形参中使用星号" class="headerlink" title="形参中使用星号"></a>形参中使用星号</h1><p>这种使用方式比较常见。它可以看成是实参的打包。即该形参变量对应多个实参。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">function1</span><span class="params">(*a, **b)</span>:</span></div><div class="line">    print(a)</div><div class="line">    print(b)</div><div class="line"></div><div class="line">func(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,x=<span class="number">10</span>,y=<span class="number">11</span>)</div><div class="line"><span class="comment"># 输出</span></div><div class="line"><span class="comment"># (1,2,3)</span></div><div class="line"><span class="comment"># &#123;'x': 10, 'y': 11&#125;</span></div></pre></td></tr></table></figure>
+<h1 id="实参中使用星号"><a href="#实参中使用星号" class="headerlink" title="实参中使用星号"></a>实参中使用星号</h1><p>这种使用方式并不太常见。它可以看成是实参的解包。即一个实参对应多个形参</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">function2</span><span class="params">(a, b, c, x, y)</span>:</span></div><div class="line">    print(<span class="string">"%s %s %s %s %s"</span> % (a, b, c, x, y))</div><div class="line"></div><div class="line">p1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line">p2 = &#123;<span class="string">'x'</span>: <span class="number">10</span>, <span class="string">'y'</span>: <span class="number">11</span>&#125;</div><div class="line"></div><div class="line">function2(*p1, **p2)</div><div class="line"><span class="comment"># 输出：1 2 3 10 11</span></div></pre></td></tr></table></figure>
+<p>这种方式常用于配置信息中，比如说被调用函数只需要它所要的配置信息数据，而调用时可以把整个配置信息字典传过去，方便代码编写。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-26T13:40:11.733Z" itemprop="dateUpdated">2017年2月26日 21:40</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/02/26/python-star/" target="_blank" rel="external">http://iskcal.github.io/2017/02/26/python-star/</a>
+    </div>
+    <footer>
+        <a href="http://iskcal.github.io">
+            <img src="/img/avatar.jpg" alt="Iskcal">
+            Iskcal
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/26/python-star/&title=《python函数中*号作用》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/26/python-star/&title=《python函数中*号作用》 — ThinLin&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://iskcal.github.io/2017/02/26/python-star/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python函数中*号作用》 — ThinLin&url=http://iskcal.github.io/2017/02/26/python-star/&via=http://iskcal.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://iskcal.github.io/2017/02/26/python-star/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/02/26/kindle/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">kindle</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="python-star" data-title="python函数中*号作用" data-url="http://iskcal.github.io/2017/02/26/python-star/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'iskcal', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>ThinLin &copy; 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/26/python-star/&title=《python函数中*号作用》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/26/python-star/&title=《python函数中*号作用》 — ThinLin&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://iskcal.github.io/2017/02/26/python-star/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python函数中*号作用》 — ThinLin&url=http://iskcal.github.io/2017/02/26/python-star/&via=http://iskcal.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://iskcal.github.io/2017/02/26/python-star/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3ay46DMAwF0P7/T3e2lUaga5vOKMnJqqIUOCzc+PF6xev9sX4fSb69v/L9kccWBgbGsoz37eqdc/VYya+q98XAwDiHcR8Krz5XHyWPlvmzYWBgYOQbuDw43sMwMDAwnmUkt8zP/7eAi4GBsQgjSVB7la7eVvKLuTgGBsaCjLzq/vefv9LfwMDAWIrxLq7qdfKUdbIwMDD2ZuQBrrrJq7YKqgEXAwPjHEZvVCIZ/OqV/qvBOprmwMDAWJyRb+/yUv6zmWZ5gAMDA2NrRhKU8+NJ0lvdXCZ3x8DA2I9RbVJOBiOSx21eDQMDY2tGfrNe4tobs3g4icXAwNiCUS3Q9waznnpBl0+IgYGxNaOaxOY/7o1uzAc4MDAwdmL0tmiTUYk8dOZhFwMDY29GconqhiwPr9US2+ifAQMDY1lGHjTnm7ze8ER0PgYGxgGMpwa2cvx81KOQK2NgYGzBSAJctW2QtySrdcFm+oqBgbEsI29VJqGzl7LOj2BgYJzGyEtpVWo+ZtFsQmBgYBzASAJotRyWz3f0UtzoEhgYGNsxeuWwapuzOl5WSGIxMDC2Y8xbAtVNZLU9Wd4UYmBgbMeYBNbejfNxsfl2EwMDYyfGvFhWbYLmDYZCwMXAwDiA0Qt81VboPKG9fAUYGBgYg7ZBMjwxD+UYGBgYTzUg8xG06uvAwMA4gZEX1L4RcKtVQAwMjNMYvRGHeWuz154cNTIxMDDWY/wAgCDbGaxUjxAAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+
+</body>
+</html>
