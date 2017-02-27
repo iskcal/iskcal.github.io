@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>深入理解C#第一章：C#开发的进化史 | ThinLin | 意义大于目的</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="C#">
+    <meta name="description" content="本章着重讲解C# 1到C# 5中的变化，微软为了让编写代码变得更加容易，在每个版本更迭中所添加的功能有一部分都在围绕如何让代码写起来更加的简单优雅。不仅如此，C# 每个版本中还会添加一些新的功能从而简化代码逻辑。
+代码演化由于本章是第一章，并不会着重讲述C#后续版本的特性，这里只提供一个大致的同一个功能的代码来描述各版本之间代码的异同以及为什么需要这样的变化。
+老规矩，用产品、名称和价格的例子来作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解C#第一章：C#开发的进化史">
+<meta property="og:url" content="http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/index.html">
+<meta property="og:site_name" content="ThinLin">
+<meta property="og:description" content="本章着重讲解C# 1到C# 5中的变化，微软为了让编写代码变得更加容易，在每个版本更迭中所添加的功能有一部分都在围绕如何让代码写起来更加的简单优雅。不仅如此，C# 每个版本中还会添加一些新的功能从而简化代码逻辑。
+代码演化由于本章是第一章，并不会着重讲述C#后续版本的特性，这里只提供一个大致的同一个功能的代码来描述各版本之间代码的异同以及为什么需要这样的变化。
+老规矩，用产品、名称和价格的例子来作">
+<meta property="og:updated_time" content="2017-02-27T11:30:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解C#第一章：C#开发的进化史">
+<meta name="twitter:description" content="本章着重讲解C# 1到C# 5中的变化，微软为了让编写代码变得更加容易，在每个版本更迭中所添加的功能有一部分都在围绕如何让代码写起来更加的简单优雅。不仅如此，C# 每个版本中还会添加一些新的功能从而简化代码逻辑。
+代码演化由于本章是第一章，并不会着重讲述C#后续版本的特性，这里只提供一个大致的同一个功能的代码来描述各版本之间代码的异同以及为什么需要这样的变化。
+老规矩，用产品、名称和价格的例子来作">
+    
+        <link rel="alternative" href="/atom.xml" title="ThinLin" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Iskcal</h5>
+          <a href="mailto:linlb428@sohu.com" title="linlb428@sohu.com" class="mail">linlb428@sohu.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Blog
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">深入理解C#第一章：C#开发的进化史</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">深入理解C#第一章：C#开发的进化史</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-02-27T10:58:24.000Z" itemprop="datePublished" class="page-time">
+  2017-02-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码演化"><span class="post-toc-number">1.</span> <span class="post-toc-text">代码演化</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#原始代码"><span class="post-toc-number">2.</span> <span class="post-toc-text">原始代码</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第一次改进"><span class="post-toc-number">3.</span> <span class="post-toc-text">第一次改进</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第二次改进"><span class="post-toc-number">4.</span> <span class="post-toc-text">第二次改进</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第三次改进-（新加）"><span class="post-toc-number">5.</span> <span class="post-toc-text">第三次改进 （新加）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#剩余部分"><span class="post-toc-number">6.</span> <span class="post-toc-text">剩余部分</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-CSharp In Depth/1-The-changing-face-of-CSharp-development"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">深入理解C#第一章：C#开发的进化史</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年02月27日 18:58" datetime="2017-02-27T10:58:24.000Z"  itemprop="datePublished">2017-02-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+
+
+
+            
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本章着重讲解C# 1到C# 5中的变化，微软为了让编写代码变得更加容易，在每个版本更迭中所添加的功能有一部分都在围绕如何让代码写起来更加的简单优雅。不仅如此，C# 每个版本中还会添加一些新的功能从而简化代码逻辑。</p>
+<h1 id="代码演化"><a href="#代码演化" class="headerlink" title="代码演化"></a>代码演化</h1><p>由于本章是第一章，并不会着重讲述C#后续版本的特性，这里只提供一个大致的同一个功能的代码来描述各版本之间代码的异同以及为什么需要这样的变化。</p>
+<p>老规矩，用产品、名称和价格的例子来作为描述对象。</p>
+<h1 id="原始代码"><a href="#原始代码" class="headerlink" title="原始代码"></a>原始代码</h1><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//CSharp 1</span></div><div class="line"><span class="keyword">using</span> System.Collections;</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Product1</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">string</span> name;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span> &#123; <span class="keyword">return</span> name; &#125; &#125;</div><div class="line"></div><div class="line">    <span class="keyword">decimal</span> price;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">decimal</span> Price &#123; <span class="keyword">get</span> &#123; <span class="keyword">return</span> price; &#125; &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Product1</span>(<span class="params"><span class="keyword">string</span> name, <span class="keyword">decimal</span> price</span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.price = price;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ArrayList <span class="title">GetSampleProducts</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        ArrayList list = <span class="keyword">new</span> ArrayList();</div><div class="line">        list.Add(<span class="keyword">new</span> Product1(<span class="string">"West Side Story"</span>, <span class="number">9.99</span>m));</div><div class="line">        list.Add(<span class="keyword">new</span> Product1(<span class="string">"Assassins"</span>, <span class="number">14.99</span>m));</div><div class="line">        list.Add(<span class="keyword">new</span> Product1(<span class="string">"Frogs"</span>, <span class="number">13.99</span>m));</div><div class="line">        list.Add(<span class="keyword">new</span> Product1(<span class="string">"Sweeney Todd"</span>, <span class="number">10.99</span>m));</div><div class="line">        <span class="keyword">return</span> list;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">ToString</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">string</span>.Format(<span class="string">"&#123;0&#125;: &#123;1&#125;"</span>, name, price);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是最简单的C#代码，我相信很多人哪怕已经接触了更高的版本后仍会写出这样的代码，但这段代码有几个缺陷：</p>
+<ul>
+<li>ArrayList没有提供与内部内容有关的编译时信息。换句话而言，ArrayList内部保存的是基类Object，你可以往其内部添加任何玩意并不出错，但显然这不是我们所希望的。</li>
+<li>代码内添加了公共的取值方法，这意味着如果添加对应的赋值方法，这也得是公共的。</li>
+<li>创建属性和变量的代码很复杂。封装一个字符串和一个十进制数应该是是简单的任务，不需这么复杂。</li>
+</ul>
+<h1 id="第一次改进"><a href="#第一次改进" class="headerlink" title="第一次改进"></a>第一次改进</h1><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//CSharp 2</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Product2</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">string</span> name;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> name; &#125;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">set</span> &#123; name = <span class="keyword">value</span>; &#125;    <span class="comment">//新的赋值权限</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">decimal</span> price;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">decimal</span> Price</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> price; &#125;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">set</span> &#123;price = <span class="keyword">value</span>; &#125;    <span class="comment">//新的赋值权限</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Product2</span>(<span class="params"><span class="keyword">string</span> name, <span class="keyword">decimal</span> price</span>)</span></div><div class="line">    &#123;</div><div class="line">        Name = name;</div><div class="line">        Price = price;</div><div class="line">    &#125; </div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Product2&gt; <span class="title">GetSampleProducts</span>(<span class="params"></span>)    <span class="comment">//采用泛型约束内部数据类型</span></span></div><div class="line">    &#123;</div><div class="line">        List&lt;Product2&gt; list = <span class="keyword">new</span> List&lt;Product&gt;();</div><div class="line">        list.Add(<span class="keyword">new</span> Product2(<span class="string">"West Side Story"</span>, <span class="number">9.99</span>m));</div><div class="line">        list.Add(<span class="keyword">new</span> Product2(<span class="string">"Assassins"</span>, <span class="number">14.99</span>m));</div><div class="line">        list.Add(<span class="keyword">new</span> Product2(<span class="string">"Frogs"</span>, <span class="number">13.99</span>m));</div><div class="line">        list.Add(<span class="keyword">new</span> Product2(<span class="string">"Sweeney Todd"</span>, <span class="number">10.99</span>m));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">ToString</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">string</span>.Format(<span class="string">"&#123;0&#125;: &#123;1&#125;"</span>, name, price);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样一来，属性有了私有的赋值方法，并且集合内部约束了基本的数据类型，这样不能添加非<code>Product</code>类对象。C# 2解决了原先代码中的2个问题。还有一个问题，C# 3解决。</p>
+<h1 id="第二次改进"><a href="#第二次改进" class="headerlink" title="第二次改进"></a>第二次改进</h1><figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//CSharp 3</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Product3</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">decimal</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;    <span class="comment">//属性创建缩短为一行</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Product3</span>(<span class="params"></span>) </span>&#123;&#125;    <span class="comment">//新的构造函数，和书中不同，这里函数是public的</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Product3&gt; <span class="title">GetSampleProducts</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> List&lt;Product3&gt;</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">new</span> Product3&#123; Name=<span class="string">"West Side Story"</span>, Price=<span class="number">9.99</span>m&#125;,</div><div class="line">            <span class="keyword">new</span> Product3&#123; Name=<span class="string">"Assassins"</span>, Price=<span class="number">14.99</span>m&#125;,</div><div class="line">            <span class="keyword">new</span> Product3&#123; Name=<span class="string">"Frogs"</span>, Price=<span class="number">13.99</span>m&#125;,</div><div class="line">            <span class="keyword">new</span> Product3&#123; Name=<span class="string">"Sweeney Todd"</span>, Price=<span class="number">10.99</span>m&#125;,</div><div class="line">        &#125;;    <span class="comment">//新的集合构造表达式</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">ToString</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">string</span>.Format(<span class="string">"&#123;0&#125;: &#123;1&#125;"</span>, Name, Price);    <span class="comment">//属性当正常的字段使用</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在，属性已经不会和任何的变量相关联，因此代码中原先所有的使用字段的地方都改成属性。</p>
+<h1 id="第三次改进-（新加）"><a href="#第三次改进-（新加）" class="headerlink" title="第三次改进 （新加）"></a>第三次改进 （新加）</h1><p>但这里有个缺陷，当如果我们希望生成一个<code>Product</code>对象中就带有初值，而不需要在构造函数中给出，这种情况往往用于有些参数变量取默认值就好而不需要手动指明默认值。C# 6中属性的自动初始化可完成这个任务。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//CSharp 6</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Product6</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125; = <span class="string">"Sweeney Todd"</span>;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">decimal</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125; = <span class="number">13.99</span>m;    <span class="comment">//属性赋初值</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Product</span>(<span class="params"></span>) </span>&#123;&#125;    <span class="comment">//新的构造函数，和书中不同，这里函数是public的</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Product6&gt; <span class="title">GetSampleProducts</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> List&lt;Product6&gt;</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">new</span> Product6&#123; Name=<span class="string">"West Side Story"</span>, Price=<span class="number">9.99</span>m&#125;,</div><div class="line">            <span class="keyword">new</span> Product6&#123; Name=<span class="string">"Assassins"</span>, Price=<span class="number">14.99</span>m&#125;,</div><div class="line">            <span class="keyword">new</span> Product6&#123; Name=<span class="string">"Frogs"</span>, Price=<span class="number">13.99</span>m&#125;,</div><div class="line">            <span class="keyword">new</span> Product6&#123; Name=<span class="string">"Sweeney Todd"</span>, Price=<span class="number">10.99</span>m&#125;,</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">ToString</span>(<span class="params"></span>)</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">$"<span class="subst">&#123;Name&#125;</span> : <span class="subst">&#123;Price&#125;</span>"</span>;    <span class="comment">//新的字符串生成方法，类似于php中的操作</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当新建一个<code>Product</code>对象时，属性<code>Name</code>和<code>Price</code>就会赋上给定的相应初值，注意这个赋值操作是直接对字段操作而不是通过赋值属性操作而来的。</p>
+<h1 id="剩余部分"><a href="#剩余部分" class="headerlink" title="剩余部分"></a>剩余部分</h1><p>本书之后还提到了C# 4中的命名实参，但我个人感觉C# 4中最大的特性不在于这而在于动态编程，因而这里不太细说了。</p>
+<p>以上只是举了一个简单的例子来描述C#中各版本内的变化，不仅仅是以上提到的改动，还有一些比较大的改进。比如说委托在C# 1到C# 4几乎都有变化，甚至有些改动形成了一种新的编程方式，比如Linq，异步编程等。</p>
+<p>后续部分我并没有说，不是说我认为不重要，而是因为我认为这些新特性会在后续章节详细说到，本章只作为引出开头，笔记做到这里就可以了。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-27T11:30:25.000Z" itemprop="dateUpdated">2017年2月27日 19:30</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/" target="_blank" rel="external">http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/</a>
+    </div>
+    <footer>
+        <a href="http://iskcal.github.io">
+            <img src="/img/avatar.jpg" alt="Iskcal">
+            Iskcal
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/&title=《深入理解C#第一章：C#开发的进化史》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/&title=《深入理解C#第一章：C#开发的进化史》 — ThinLin&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入理解C#第一章：C#开发的进化史》 — ThinLin&url=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/&via=http://iskcal.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/02/27/CSharp In Depth/0-Abstract/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">深入理解C# 各章汇总</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="CSharp In Depth/1-The-changing-face-of-CSharp-development" data-title="深入理解C#第一章：C#开发的进化史" data-url="http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'iskcal', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>ThinLin &copy; 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/&title=《深入理解C#第一章：C#开发的进化史》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/&title=《深入理解C#第一章：C#开发的进化史》 — ThinLin&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入理解C#第一章：C#开发的进化史》 — ThinLin&url=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/&via=http://iskcal.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/1-The-changing-face-of-CSharp-development/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADIUlEQVR42u3aQXLCQAwEwPz/0+QBKcjMyqSw0j5RwSzu5aBIs19f8fX4cf1899n9ycrPXrcrXHxhY2Nj34T9eHm9foizO5/d/wyQPFtuwcbGxt7KbktLgnwNSL6x/a5kZWxsbGzstm1ISk7eWuTFDBsbGxs7L1pnZaxtadrX2NjY2P+NPSkMyf1twJBs0x/N0rCxsbE/np2nop//+i35NjY2NvYHsx/lVf+7H4yB2iKUlMZfPouNjY29iJ0XgPmRncmnJnHC0/WxsbGxV7Dbof8kGGgPAM0HQ0/vx8bGxl7EzotEGyecHetJIt72B4uyEWxsbOybs5MP5A3JWZsx+ZZ25ISNjY29iZ3HAPk9V7UKeVDRllJsbGzsTex2AHTVGZj20ds2qZ6oYWNjY9+cnQS68zKTAyYjqvbv2NjY2Hdnn7Uf0aRqsCltDFzHDNjY2NiL2O3AqP1H/zBzjsODdvuwsbGxt7LP4t6zktOSzsZbxSgKGxsbeyl7stxkwPSXjQ02Njb2Dnb7NWcHLttwdx4b1IcvsbGxsW/LvuqATtse5IOkHNmGB9jY2Ni72fPGoy1LZ0c/802sfw1sbGzsm7DzB5qPeyZxb/4bRluPjY2NvYidDGuSApYflGlXaI+BFo0NNjY29gr2fDCUbFYeKpx9exsAY2NjY+9jn8Fe35lHAm08/FVeT4dK2NjY2CvYydA/72nyLbgqDM6bkF/KGDY2NvY6djviaYtcu2Y7VIo2HRsbG3sde9JyTErgWfPTxhjY2NjYu9ntaH6yKWer5Y/bFmNsbGzsHew8am3LUv5w7QadDa2wsbGxd7PbwDX/y9mhnLY41YUQGxsbex07KWbvwLTvvv28EjY2Nvat2I/yOhvo5CFEvsVttICNjY29ld0WgPzATTIMmhfFPAY+LH7Y2NjYN2EnRevagDaPB9rRf7ECNjY29jp2O3ZPmo1kIxJeUgjbUoeNjY2NfW24m/CuKqvY2NjY2Pmgvx0/JY3QWRnDxsbG/g/sswOXZ2OddniUD6reEg9gY2Njfzw7D3onD5EPmNp12qAaGxsbexH7GzDPsLzTYaEEAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+
+</body>
+</html>
