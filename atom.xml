@@ -63,7 +63,7 @@
     <link href="http://iskcal.github.io/2017/02/27/CSharp%20In%20Depth/0-Abstract/"/>
     <id>http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/</id>
     <published>2017-02-27T02:49:56.000Z</published>
-    <updated>2017-02-27T03:05:18.696Z</updated>
+    <updated>2017-02-27T03:20:59.118Z</updated>
     
     <content type="html"><![CDATA[<p>这是我第一次开始尝试正式阅读一本书，嗯，以前多多少少看过一点书，但是经常看不了多少就放弃了，总觉得自己看不进去，也不能坚持下来。这次索性就边看边记录，看看自己能坚持多久。所谓好记性不如烂笔头，只看不写确实让人提不起什么兴趣。好了废话不多说，正式开始吧。</p>
 <p>本书主要讲解的是C# 2及后续版本的更新要素。当初微软在创建C#之时，是以Java为蓝本抄袭过来的，因而C# 1的大多数功能和Java类似，之后便从C# 2开始加入了一系列的新特性和新功能，新的内容便是本书着重讲解的部分。</p>
@@ -88,10 +88,6 @@
     
     
       <category term="C#" scheme="http://iskcal.github.io/tags/C/"/>
-    
-      <category term="生成器" scheme="http://iskcal.github.io/tags/%E7%94%9F%E6%88%90%E5%99%A8/"/>
-    
-      <category term="Linq" scheme="http://iskcal.github.io/tags/Linq/"/>
     
   </entry>
   
@@ -194,8 +190,6 @@
     
       <category term="python" scheme="http://iskcal.github.io/tags/python/"/>
     
-      <category term="装饰器" scheme="http://iskcal.github.io/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/"/>
-    
   </entry>
   
   <entry>
@@ -203,7 +197,7 @@
     <link href="http://iskcal.github.io/2017/02/24/python-closure/"/>
     <id>http://iskcal.github.io/2017/02/24/python-closure/</id>
     <published>2017-02-24T06:45:27.000Z</published>
-    <updated>2017-02-24T08:49:36.000Z</updated>
+    <updated>2017-02-27T03:21:02.278Z</updated>
     
     <content type="html"><![CDATA[<h1 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h1><p>闭包这个概念，在函数式编程语言用的非常多，由于Python也具有一定的函数式编程的能力，自然也就会有闭包了。</p>
 <p>我们先来看看闭包是啥。简而言之，即某个函数A返回一个函数B，但函数B包含一些函数A中的变量。用Python代码表示为：</p>
@@ -234,8 +228,6 @@
     
     
       <category term="python" scheme="http://iskcal.github.io/tags/python/"/>
-    
-      <category term="闭包" scheme="http://iskcal.github.io/tags/%E9%97%AD%E5%8C%85/"/>
     
   </entry>
   
