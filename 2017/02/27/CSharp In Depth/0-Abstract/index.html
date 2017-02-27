@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>深入理解C# 各章汇总 | ThinLin | 意义大于目的</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="C#,生成器,Linq">
+    <meta name="description" content="这是我第一次开始尝试正式阅读一本书，嗯，以前多多少少看过一点书，但是经常看不了多少就放弃了，总觉得自己看不进去，也不能坚持下来。这次索性就边看边记录，看看自己能坚持多久。所谓好记性不如烂笔头，只看不写确实让人提不起什么兴趣。好了废话不多说，正式开始吧。
+本书主要讲解的是C# 2及后续版本的更新要素。当初微软在创建C#之时，是以Java为蓝本抄袭过来的，因而C# 1的大多数功能和Java类似，之后便">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解C# 各章汇总">
+<meta property="og:url" content="http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/index.html">
+<meta property="og:site_name" content="ThinLin">
+<meta property="og:description" content="这是我第一次开始尝试正式阅读一本书，嗯，以前多多少少看过一点书，但是经常看不了多少就放弃了，总觉得自己看不进去，也不能坚持下来。这次索性就边看边记录，看看自己能坚持多久。所谓好记性不如烂笔头，只看不写确实让人提不起什么兴趣。好了废话不多说，正式开始吧。
+本书主要讲解的是C# 2及后续版本的更新要素。当初微软在创建C#之时，是以Java为蓝本抄袭过来的，因而C# 1的大多数功能和Java类似，之后便">
+<meta property="og:updated_time" content="2017-02-27T02:54:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解C# 各章汇总">
+<meta name="twitter:description" content="这是我第一次开始尝试正式阅读一本书，嗯，以前多多少少看过一点书，但是经常看不了多少就放弃了，总觉得自己看不进去，也不能坚持下来。这次索性就边看边记录，看看自己能坚持多久。所谓好记性不如烂笔头，只看不写确实让人提不起什么兴趣。好了废话不多说，正式开始吧。
+本书主要讲解的是C# 2及后续版本的更新要素。当初微软在创建C#之时，是以Java为蓝本抄袭过来的，因而C# 1的大多数功能和Java类似，之后便">
+    
+        <link rel="alternative" href="/atom.xml" title="ThinLin" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Iskcal</h5>
+          <a href="mailto:linlb428@sohu.com" title="linlb428@sohu.com" class="mail">linlb428@sohu.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Blog
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">深入理解C# 各章汇总</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">深入理解C# 各章汇总</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-02-27T02:49:56.000Z" itemprop="datePublished" class="page-time">
+  2017-02-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第二部分：解决C-1-中的问题，-主要讲述了C-2-中的几个重大新特点：泛型、可空类型、委托、迭代器以及其他小特性"><span class="post-toc-number">1.</span> <span class="post-toc-text">第二部分：解决C# 1 中的问题， 主要讲述了C# 2 中的几个重大新特点：泛型、可空类型、委托、迭代器以及其他小特性</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#第三部分：-C-3：革新写代码的方式，整个C-3-基本在围绕着Linq所服务的，并且其中很多特性在Linq之外也可以使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">第三部分： C# 3：革新写代码的方式，整个C# 3 基本在围绕着Linq所服务的，并且其中很多特性在Linq之外也可以使用</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-CSharp In Depth/0-Abstract"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">深入理解C# 各章汇总</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年02月27日 10:49" datetime="2017-02-27T02:49:56.000Z"  itemprop="datePublished">2017-02-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+
+
+
+            
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>这是我第一次开始尝试正式阅读一本书，嗯，以前多多少少看过一点书，但是经常看不了多少就放弃了，总觉得自己看不进去，也不能坚持下来。这次索性就边看边记录，看看自己能坚持多久。所谓好记性不如烂笔头，只看不写确实让人提不起什么兴趣。好了废话不多说，正式开始吧。</p>
+<p>本书主要讲解的是C# 2及后续版本的更新要素。当初微软在创建C#之时，是以Java为蓝本抄袭过来的，因而C# 1的大多数功能和Java类似，之后便从C# 2开始加入了一系列的新特性和新功能，新的内容便是本书着重讲解的部分。</p>
+<p>由于这本书出的已经有了几年了，C# 也从1发展到7了，但本书只讲述了C# 1 到C# 5 的情况，由于C# 7 暂时还未正式发布，并且 C# 6和C# 7 添加的功能不太多，很多东西属于语法糖的程度，因而我个人会在最后结尾处稍微提及一下。</p>
+<p>本书分为五个部分和三个附录。五个部分基本对于C# 1到C# 5，附录列出了所有的参考资料，这里不做多叙述。</p>
+<p>#第一部分：基础知识，主要讲述了C#的一些基础性知识以及C# 1中的概念，这是为后续的C# 版本做铺垫。</p>
+<p>[第一章: C#进化史][1]<br>[第二章：C# 1 所搭建的核心基础][2]</p>
+<h1 id="第二部分：解决C-1-中的问题，-主要讲述了C-2-中的几个重大新特点：泛型、可空类型、委托、迭代器以及其他小特性"><a href="#第二部分：解决C-1-中的问题，-主要讲述了C-2-中的几个重大新特点：泛型、可空类型、委托、迭代器以及其他小特性" class="headerlink" title="第二部分：解决C# 1 中的问题， 主要讲述了C# 2 中的几个重大新特点：泛型、可空类型、委托、迭代器以及其他小特性"></a>第二部分：解决C# 1 中的问题， 主要讲述了C# 2 中的几个重大新特点：泛型、可空类型、委托、迭代器以及其他小特性</h1><p>[第三章：用泛型实现参数化类型][3]<br>[第四章：可空类型][4]<br>[第五章：进入快速通道的委托][5]<br>[第六章：实现迭代器的捷径][6]<br>[第七章：结束C# 2的讲解：最后一些特性][7]</p>
+<h1 id="第三部分：-C-3：革新写代码的方式，整个C-3-基本在围绕着Linq所服务的，并且其中很多特性在Linq之外也可以使用"><a href="#第三部分：-C-3：革新写代码的方式，整个C-3-基本在围绕着Linq所服务的，并且其中很多特性在Linq之外也可以使用" class="headerlink" title="第三部分： C# 3：革新写代码的方式，整个C# 3 基本在围绕着Linq所服务的，并且其中很多特性在Linq之外也可以使用"></a>第三部分： C# 3：革新写代码的方式，整个C# 3 基本在围绕着Linq所服务的，并且其中很多特性在Linq之外也可以使用</h1><p>[第八章：用智能的编译器来防错][8]<br>[第九章：Lambda表达式和表达式树][9]</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-02-27T02:54:57.000Z" itemprop="dateUpdated">2017年2月27日 10:54</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/02/27/CSharp In Depth/0-Abstract/" target="_blank" rel="external">http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/</a>
+    </div>
+    <footer>
+        <a href="http://iskcal.github.io">
+            <img src="/img/avatar.jpg" alt="Iskcal">
+            Iskcal
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linq/">Linq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生成器/">生成器</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/&title=《深入理解C# 各章汇总》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/&title=《深入理解C# 各章汇总》 — ThinLin&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入理解C# 各章汇总》 — ThinLin&url=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/&via=http://iskcal.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/02/26/python-star/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">python函数中*号作用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="CSharp In Depth/0-Abstract" data-title="深入理解C# 各章汇总" data-url="http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'iskcal', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>ThinLin &copy; 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/&title=《深入理解C# 各章汇总》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/&title=《深入理解C# 各章汇总》 — ThinLin&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入理解C# 各章汇总》 — ThinLin&url=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/&via=http://iskcal.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3aQW7DMAwEwPz/0+kD2jpLUi1genQKCkPW+MBK4r5e8Xh/G7898/35ZObrvxwbGBgYt2W8L8dvy8oXfWrmD58SAwPjAYykgCa/k4VWkUmZxsDAwMinq5bUU+/FwMDAuJ462rrFR2IMDAyMySE2P2Qm13CT+TEwMJ7GyG/d///3n/Q3MDAwbsV4F0dyTO3NNpoHAwNjNSMvcNUDam8T2VsPBgbGbkZSUnsv612oVdufr7x3ioGBcVtGfh129gCctxYKQTQMDIzVjOqV/eRyvwcrlHsMDIyljLxNeD1pdblJgKOw6cTAwFjKmAQjktdMGqLlszgGBsZSxqlYWDURUT08R2/HwMBYyhjpW3mtXun/sNHEwMBYzahuB3vH0fn2MfooGBgYSxnVoEMezpjHyPJgBwYGxm5G0kTMK3evjB7OjGBgYKxj9AIWvQJd3Tg2Sy0GBsY6Ru/Cq7plvC6pvbAFBgbG0xi99uF8niTAUYh6YGBgPIYx2XedCpk1PysGBsYjGfnl2rxVMI9iYGBgPIGRFN9j7cZBRKPZj8XAwLgt410ck1hGNXJRCJ9hYGCsZlQ7g/l1WNJaqB6M838MGBgY+xjVSNak5ZnPXC64GBgYD2Dkh8zqVVrewqyW/h8KLgYGBkYcg+jtRntBMQwMDIzkmd62r9ou/ZOCi4GBcSvGpBnQDHIV5/nwOTAwMFYzesGIXnMxv0o7kCLBwMDYwPgCbNCJh+b/z3MAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+
+</body>
+</html>
