@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iskcal.github.io/"/>
-  <updated>2017-02-28T13:49:17.000Z</updated>
+  <updated>2017-03-04T12:31:52.000Z</updated>
   <id>http://iskcal.github.io/</id>
   
   <author>
@@ -16,9 +16,112 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>深入理解C#第二章：C# 1 所搭建的核心基础</title>
+    <link href="http://iskcal.github.io/2017/03/04/CSharp%20In%20Depth/2-Core-foundations-building-on-CSharp/"/>
+    <id>http://iskcal.github.io/2017/03/04/CSharp In Depth/2-Core-foundations-building-on-CSharp/</id>
+    <published>2017-03-04T09:28:44.000Z</published>
+    <updated>2017-03-04T12:31:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h1><h2 id="使用委托步骤"><a href="#使用委托步骤" class="headerlink" title="使用委托步骤"></a>使用委托步骤</h2><p>委托使用分成4步：</p>
+<ol>
+<li>声明委托类型</li>
+<li>为委托实例的操作找到一个恰当的方法，即把什么方法挂载到委托上</li>
+<li>创建委托实例</li>
+<li>调用委托（<code>Invoke</code> 方法调用）</li>
+</ol>
+<h2 id="合并和删除委托"><a href="#合并和删除委托" class="headerlink" title="合并和删除委托"></a>合并和删除委托</h2><p>一个委托可以挂载上多个符合要求的函数（即函数的参数个数、参数类型和返回值类型相同）。</p>
+<p><code>System.Delegate</code>类型的静态方法<code>Combine</code>和<code>Remove</code>函数可以向委托添加相应的函数。但这两个方法并不是在原委托上操作，而是生成一个新委托，因而委托是不易变的。</p>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>事件是对委托的进一步封装，它只允许在创建委托的类中调用委托，而在类外只能通过事件来把函数挂载到该委托上。</p>
+<h1 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h1><p>C# 1 的类型系统是静态的、显式的和安全的。</p>
+<p>但C# 1 中有几点却不够用。</p>
+<ul>
+<li>除数组外集合中只能是Object类型，这表示在内部可以装任意东西</li>
+<li>缺乏协变和逆变</li>
+</ul>
+<h1 id="值类型和引用类型"><a href="#值类型和引用类型" class="headerlink" title="值类型和引用类型"></a>值类型和引用类型</h1><p>引用类型放在堆中，局部值类型放在堆栈中，引用类型中的值类型放在堆中。</p>
+<p>值类型与<code>object</code>类型相互转化叫装箱和拆箱。装箱和拆箱会对性能有少许影响。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;委托&quot;&gt;&lt;a href=&quot;#委托&quot; class=&quot;headerlink&quot; title=&quot;委托&quot;&gt;&lt;/a&gt;委托&lt;/h1&gt;&lt;h2 id=&quot;使用委托步骤&quot;&gt;&lt;a href=&quot;#使用委托步骤&quot; class=&quot;headerlink&quot; title=&quot;使用委托步骤&quot;&gt;&lt;/a&gt;使
+    
+    </summary>
+    
+      <category term="读书笔记" scheme="http://iskcal.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="C#" scheme="http://iskcal.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自控力 第一章：意志力</title>
+    <link href="http://iskcal.github.io/2017/03/04/Self%20control/self-control-1/"/>
+    <id>http://iskcal.github.io/2017/03/04/Self control/self-control-1/</id>
+    <published>2017-03-04T01:42:46.000Z</published>
+    <updated>2017-03-04T02:13:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="摘抄"><a href="#摘抄" class="headerlink" title="摘抄"></a>摘抄</h1><ol>
+<li><p>所谓意志力，即“我要做”、“我不要”和“我想要”三种力量。</p>
+</li>
+<li><p>在意志力挑战中获胜关键，在于学会使用原始本能，而不是反抗这些本能。</p>
+</li>
+<li><p>在做决定的时候，你必须意识到自己此刻需要意志力。</p>
+</li>
+<li><p>如果你心里还在想着其他事，那么冲动就会主导你的选择。</p>
+</li>
+<li><p>认识自己，注意那些是自己真正想做的，那些是自己掩饰意图而做的，换句话来说，注意自己做某件事的真正意图。</p>
+</li>
+</ol>
+<h1 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h1><ol>
+<li><p>请选择一天，把做出来的决定记录下来。在这一天结束时，回想做出了哪些决定，分析哪些有利于你实现目标，哪些会消磨你的意志。坚持记录你的决定，还有助于减少在注意力分散时作决定，同时增强你的意志力。</p>
+</li>
+<li><p>利用一周的时间观察一下，你究竟如何屈服于冲动的。你甚至不用设定一个目标，只需要看看你能否及早意识到自己在做什么，什么样的想法、感受和情况最让你有冲动，想些什么或暗示什么最容易让你放弃冲动。</p>
+</li>
+<li><p>每天花5分钟训练大脑冥想</p>
+</li>
+</ol>
+<h1 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h1><ol>
+<li>2017-3-3</li>
+</ol>
+<ul>
+<li>7:30 决定早起 — 成功但拖延，差点上课迟到，不想起来</li>
+<li>7:50~9:25 上课 — 成功</li>
+<li>9:30~12:00 技能学习 — 失败，上了半上午的网，当天nintendo switch发售，全程在网络浏览相关信息，以及观看相关开箱直播</li>
+<li>12:30~14:00 午睡 — 失败，因为下午没课，不太想睡</li>
+<li>14:30~17:30 回顾论文，写论文报告 — 失败，不太想去实验室，结果在宿舍玩了一下午</li>
+<li>19:00~22:30 赶论文报告 — 完成</li>
+</ul>
+<p>分析：早起还是需要的，个人感觉如果没有手机，可能执行效果会更好，接下来可能需要研究下如果没有手机如何查看时间的问题。上课不说了，技能学习需要找到一个点，感觉太大太空，需要再仔细琢磨琢磨。论文报告以后可以留在周五晚上写，没有必要在下午赶出来。</p>
+<ol>
+<li><p>通常会喜欢拖延，拖延拖延往往到最后就屈服冲动了。很多时候拖延会意识到，但是一想拖一会儿没什么就这么拖延下去了。还有对能否做完一件事抱有疑问，不自信，认为自己没有能力完成。</p>
+</li>
+<li><p>效果感觉不是很好，但还是要坚持做下去。</p>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;摘抄&quot;&gt;&lt;a href=&quot;#摘抄&quot; class=&quot;headerlink&quot; title=&quot;摘抄&quot;&gt;&lt;/a&gt;摘抄&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;所谓意志力，即“我要做”、“我不要”和“我想要”三种力量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在意志力挑战中获胜关键，在于
+    
+    </summary>
+    
+      <category term="读书笔记" scheme="http://iskcal.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="life" scheme="http://iskcal.github.io/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
     <title>《解忧杂货店》 观后感</title>
-    <link href="http://iskcal.github.io/2017/02/28/worrybook/"/>
-    <id>http://iskcal.github.io/2017/02/28/worrybook/</id>
+    <link href="http://iskcal.github.io/2017/02/28/life/worrybook/"/>
+    <id>http://iskcal.github.io/2017/02/28/life/worrybook/</id>
     <published>2017-02-28T12:17:06.000Z</published>
     <updated>2017-02-28T13:49:17.000Z</updated>
     
@@ -144,8 +247,8 @@
   
   <entry>
     <title>python函数中*号作用</title>
-    <link href="http://iskcal.github.io/2017/02/26/python-star/"/>
-    <id>http://iskcal.github.io/2017/02/26/python-star/</id>
+    <link href="http://iskcal.github.io/2017/02/26/wiki/python-star/"/>
+    <id>http://iskcal.github.io/2017/02/26/wiki/python-star/</id>
     <published>2017-02-26T13:21:54.000Z</published>
     <updated>2017-02-26T13:40:11.733Z</updated>
     
@@ -173,8 +276,8 @@
   
   <entry>
     <title>kindle</title>
-    <link href="http://iskcal.github.io/2017/02/26/kindle/"/>
-    <id>http://iskcal.github.io/2017/02/26/kindle/</id>
+    <link href="http://iskcal.github.io/2017/02/26/life/kindle/"/>
+    <id>http://iskcal.github.io/2017/02/26/life/kindle/</id>
     <published>2017-02-26T12:21:15.000Z</published>
     <updated>2017-02-26T12:56:14.000Z</updated>
     
@@ -284,8 +387,8 @@
   
   <entry>
     <title>博客正式启动啦</title>
-    <link href="http://iskcal.github.io/2017/02/22/start/"/>
-    <id>http://iskcal.github.io/2017/02/22/start/</id>
+    <link href="http://iskcal.github.io/2017/02/22/life/start/"/>
+    <id>http://iskcal.github.io/2017/02/22/life/start/</id>
     <published>2017-02-22T10:20:28.000Z</published>
     <updated>2017-02-22T10:29:16.914Z</updated>
     
