@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iskcal.github.io/"/>
-  <updated>2017-03-04T12:31:52.000Z</updated>
+  <updated>2017-03-04T12:39:06.773Z</updated>
   <id>http://iskcal.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iskcal.github.io/2017/03/04/CSharp%20In%20Depth/2-Core-foundations-building-on-CSharp/"/>
     <id>http://iskcal.github.io/2017/03/04/CSharp In Depth/2-Core-foundations-building-on-CSharp/</id>
     <published>2017-03-04T09:28:44.000Z</published>
-    <updated>2017-03-04T12:31:52.000Z</updated>
+    <updated>2017-03-04T12:39:06.773Z</updated>
     
     <content type="html"><![CDATA[<h1 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h1><h2 id="使用委托步骤"><a href="#使用委托步骤" class="headerlink" title="使用委托步骤"></a>使用委托步骤</h2><p>委托使用分成4步：</p>
 <ol>
@@ -48,10 +48,12 @@
     
     </summary>
     
-      <category term="读书笔记" scheme="http://iskcal.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+      <category term="技术" scheme="http://iskcal.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
       <category term="C#" scheme="http://iskcal.github.io/tags/C/"/>
+    
+      <category term="读书笔记" scheme="http://iskcal.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -60,7 +62,7 @@
     <link href="http://iskcal.github.io/2017/03/04/Self%20control/self-control-1/"/>
     <id>http://iskcal.github.io/2017/03/04/Self control/self-control-1/</id>
     <published>2017-03-04T01:42:46.000Z</published>
-    <updated>2017-03-04T02:13:49.000Z</updated>
+    <updated>2017-03-04T12:39:06.773Z</updated>
     
     <content type="html"><![CDATA[<h1 id="摘抄"><a href="#摘抄" class="headerlink" title="摘抄"></a>摘抄</h1><ol>
 <li><p>所谓意志力，即“我要做”、“我不要”和“我想要”三种力量。</p>
@@ -111,10 +113,12 @@
     
     </summary>
     
-      <category term="读书笔记" scheme="http://iskcal.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+      <category term="读书" scheme="http://iskcal.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
     
     
       <category term="life" scheme="http://iskcal.github.io/tags/life/"/>
+    
+      <category term="book" scheme="http://iskcal.github.io/tags/book/"/>
     
   </entry>
   
@@ -123,7 +127,7 @@
     <link href="http://iskcal.github.io/2017/02/28/life/worrybook/"/>
     <id>http://iskcal.github.io/2017/02/28/life/worrybook/</id>
     <published>2017-02-28T12:17:06.000Z</published>
-    <updated>2017-02-28T13:49:17.000Z</updated>
+    <updated>2017-03-04T12:39:06.773Z</updated>
     
     <content type="html"><![CDATA[<p>关于这本书，以前听说过，评价还不错，正好亚马逊也给我推荐了这本书，于是我就拿来读读看看了。结果发现，这本书越看越不错，花了两天整的时间把读完了，反正也没啥事，写写一些感想吧。</p>
 <p>不得不说，《解忧杂货店》这本书条理清晰，阅读顺畅。其作者东野圭吾是一个写推理小说的作家，虽说这本书不是推理小说，但是整篇故事下来也可以看出作者在逻辑上的处理实力。</p>
@@ -162,8 +166,10 @@
     
     </summary>
     
-      <category term="读后感" scheme="http://iskcal.github.io/categories/%E8%AF%BB%E5%90%8E%E6%84%9F/"/>
+      <category term="读书" scheme="http://iskcal.github.io/categories/%E8%AF%BB%E4%B9%A6/"/>
     
+    
+      <category term="life" scheme="http://iskcal.github.io/tags/life/"/>
     
       <category term="book" scheme="http://iskcal.github.io/tags/book/"/>
     
@@ -205,10 +211,12 @@
     
     </summary>
     
-      <category term="读书笔记" scheme="http://iskcal.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+      <category term="技术" scheme="http://iskcal.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
       <category term="C#" scheme="http://iskcal.github.io/tags/C/"/>
+    
+      <category term="读书笔记" scheme="http://iskcal.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -217,7 +225,7 @@
     <link href="http://iskcal.github.io/2017/02/27/CSharp%20In%20Depth/0-Abstract/"/>
     <id>http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/</id>
     <published>2017-02-27T02:49:56.000Z</published>
-    <updated>2017-03-04T12:34:25.120Z</updated>
+    <updated>2017-03-04T12:37:31.000Z</updated>
     
     <content type="html"><![CDATA[<p>这是我第一次开始尝试正式阅读一本书，嗯，以前多多少少看过一点书，但是经常看不了多少就放弃了，总觉得自己看不进去，也不能坚持下来。这次索性就边看边记录，看看自己能坚持多久。所谓好记性不如烂笔头，只看不写确实让人提不起什么兴趣。好了废话不多说，正式开始吧。</p>
 <p>本书主要讲解的是C# 2及后续版本的更新要素。当初微软在创建C#之时，是以Java为蓝本抄袭过来的，因而C# 1的大多数功能和Java类似，之后便从C# 2开始加入了一系列的新特性和新功能，新的内容便是本书着重讲解的部分。</p>
@@ -238,10 +246,12 @@
     
     </summary>
     
-      <category term="读书笔记" scheme="http://iskcal.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+      <category term="技术" scheme="http://iskcal.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
       <category term="C#" scheme="http://iskcal.github.io/tags/C/"/>
+    
+      <category term="读书笔记" scheme="http://iskcal.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
@@ -250,7 +260,7 @@
     <link href="http://iskcal.github.io/2017/02/26/wiki/python-star/"/>
     <id>http://iskcal.github.io/2017/02/26/wiki/python-star/</id>
     <published>2017-02-26T13:21:54.000Z</published>
-    <updated>2017-02-26T13:40:11.733Z</updated>
+    <updated>2017-03-04T12:39:03.000Z</updated>
     
     <content type="html"><![CDATA[<p>Python中既可以在实参中使用<code>*</code>，也可以在形参中使用<code>*</code>。</p>
 <h1 id="形参中使用星号"><a href="#形参中使用星号" class="headerlink" title="形参中使用星号"></a>形参中使用星号</h1><p>这种使用方式比较常见。它可以看成是实参的打包。即该形参变量对应多个实参。</p>
@@ -279,7 +289,7 @@
     <link href="http://iskcal.github.io/2017/02/26/life/kindle/"/>
     <id>http://iskcal.github.io/2017/02/26/life/kindle/</id>
     <published>2017-02-26T12:21:15.000Z</published>
-    <updated>2017-02-26T12:56:14.000Z</updated>
+    <updated>2017-03-04T12:39:06.773Z</updated>
     
     <content type="html"><![CDATA[<p>元宵前买的kindle到今天终于到了，亚马逊似乎这款kindle卖的挺火的，一直无货，我隔了几乎有两个多星期才拿到手。</p>
 <p>说起来，去年有想买kindle的念头，但是一直犹犹豫豫的，今年总算下定决心买来一个玩玩。之所以想买这个，纯粹就是希望自己能够多看点书吧。</p>
@@ -305,8 +315,6 @@
     
     
       <category term="life" scheme="http://iskcal.github.io/tags/life/"/>
-    
-      <category term="book" scheme="http://iskcal.github.io/tags/book/"/>
     
   </entry>
   
