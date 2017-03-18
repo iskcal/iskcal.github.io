@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iskcal.github.io/"/>
-  <updated>2017-03-18T04:56:37.000Z</updated>
+  <updated>2017-03-18T05:20:00.000Z</updated>
   <id>http://iskcal.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://iskcal.github.io/2017/03/18/CSharp%20In%20Depth/4-Saying-nothing-with-nullable-types/"/>
     <id>http://iskcal.github.io/2017/03/18/CSharp In Depth/4-Saying-nothing-with-nullable-types/</id>
     <published>2017-03-18T02:59:24.000Z</published>
-    <updated>2017-03-18T04:56:37.000Z</updated>
+    <updated>2017-03-18T05:20:00.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Nullable"><a href="#Nullable" class="headerlink" title="Nullable"></a>Nullable<t></t></h1><p>首先，它是一个泛型。类型参数<code>T</code>有一个值类型约束，另外，它不能是另一个可空类型，毕竟这是没有意义的。<code>T</code>也被称为基础类型。</p>
 <p><code>Nullable&lt;T&gt;</code>最重要的是两个属性<code>HasValue</code>和<code>Value</code>。前者表示该值是否为空，它是一个<code>Boolean</code>属性，后者表示如果有值，值为多少。</p>
@@ -54,10 +54,9 @@
 <th style="text-align:center">x</th>
 <th style="text-align:center">y</th>
 <th style="text-align:center">x&amp;y</th>
-<th style="text-align:center">x\</th>
-<th style="text-align:center">y</th>
+<th style="text-align:center">x&#124;y</th>
 <th style="text-align:center">x^y</th>
-<th>!x</th>
+<th style="text-align:center">!x</th>
 </tr>
 </thead>
 <tbody>
