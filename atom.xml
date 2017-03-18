@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iskcal.github.io/"/>
-  <updated>2017-03-18T03:02:08.750Z</updated>
+  <updated>2017-03-18T04:56:37.000Z</updated>
   <id>http://iskcal.github.io/</id>
   
   <author>
@@ -20,9 +20,138 @@
     <link href="http://iskcal.github.io/2017/03/18/CSharp%20In%20Depth/4-Saying-nothing-with-nullable-types/"/>
     <id>http://iskcal.github.io/2017/03/18/CSharp In Depth/4-Saying-nothing-with-nullable-types/</id>
     <published>2017-03-18T02:59:24.000Z</published>
-    <updated>2017-03-18T03:02:08.750Z</updated>
+    <updated>2017-03-18T04:56:37.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Nullable"><a href="#Nullable" class="headerlink" title="Nullable"></a>Nullable<t></t></h1><p>首先，它是一个泛型。类型参数<code>T</code>有一个值类型约束，另外，它不能是另一个可空类型，毕竟这是没有意义的。<code>T</code>也被称为基础类型。</p>
+<p><code>Nullable&lt;T&gt;</code>最重要的是两个属性<code>HasValue</code>和<code>Value</code>。前者表示该值是否为空，它是一个<code>Boolean</code>属性，后者表示如果有值，值为多少。</p>
+<p><code>Nullable&lt;T&gt;</code>有一个<code>GetValueOrDefault</code>的方法，它有两个重载。其主要作用是如果存在值，则返回该值，否则返回一个默认值。</p>
+<h1 id="装箱和拆箱"><a href="#装箱和拆箱" class="headerlink" title="装箱和拆箱"></a>装箱和拆箱</h1><p>可空类型还是一个值类型，因此也存在装箱和拆箱的问题。但可空类型的装箱和拆箱和其他的值类型有很大的区别。</p>
+<h2 id="装箱"><a href="#装箱" class="headerlink" title="装箱"></a>装箱</h2><p>如果可空类型是空值，则装箱后是一个空引用。如果可空类型非空，则按照正常的装箱步骤装箱。</p>
+<h2 id="拆箱"><a href="#拆箱" class="headerlink" title="拆箱"></a>拆箱</h2><p>如果是空引用，拆箱成普通类型会抛出<code>NullReferenceException</code>异常，但拆成可空类型则会形成没有值的实例。如果是已装箱的值，则既可以拆成普通类型，也可以拆成对应的可空类型。</p>
+<h1 id="相等性"><a href="#相等性" class="headerlink" title="相等性"></a>相等性</h1><p><code>Nullable&lt;T&gt;</code>覆盖了<code>object.Equals(object)</code>。因此关于可空类型的相等判断也会出现一些变化，具体表现在调用<code>first.Equals(second)</code>上：</p>
+<ul>
+<li>如果<code>first</code>没有值，<code>second</code>为<code>null</code>，它们就是相等的</li>
+<li>如果<code>first</code>没有值，<code>second</code>不为<code>null</code>，它们就是不等的</li>
+<li>如果<code>first</code>有值，<code>second</code>为<code>null</code>，它们就是不等的</li>
+<li>如果<code>first</code>的值等于<code>second</code>值，它们就是相等的</li>
+</ul>
+<p>这里对于<code>second</code>不用再考虑是否为可空类型的情况，因为做比较时，<code>Equals</code>函数只接受<code>object</code>对象，如果<code>second</code>是可空类型，则是以装箱的形式传入的，即要么为<code>null</code>要么不为空。</p>
+<h1 id="Nullable-1"><a href="#Nullable-1" class="headerlink" title="Nullable"></a>Nullable</h1><p><code>Nullable</code>是一个静态类，包含三个静态函数，前两个是泛型方法，用于比较。第三个是普通方法，用于获取可空类型的基础类型。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Type <span class="title">GetUnderlyingType</span>(<span class="params">Type nullableType</span>)</span></div></pre></td></tr></table></figure>
+<h1 id="语法糖"><a href="#语法糖" class="headerlink" title="语法糖"></a>语法糖</h1><h2 id="修饰符"><a href="#修饰符" class="headerlink" title="?修饰符"></a>?修饰符</h2><p>简写修饰符，只是把相应的<code>Nullable&lt;T&gt;</code>简写成<code>T?</code>。</p>
+<h2 id="null比较和赋值"><a href="#null比较和赋值" class="headerlink" title="null比较和赋值"></a>null比较和赋值</h2><p>之前说过可以把可空类型与<code>null</code>直接比较。不仅可以比较，也可以直接赋值，赋值为<code>null</code>意味着该可空类型没有值。</p>
+<h2 id="可空类型转换"><a href="#可空类型转换" class="headerlink" title="可空类型转换"></a>可空类型转换</h2><p>当非可空的值类型<code>T</code>重载了操作符后，可空类型<code>T?</code>自动便拥有了相同的操作符，但其操作数和结果类型不同，这被称为提升转换。</p>
+<ul>
+<li><code>true</code>和<code>false</code>操作符永远不会提升。</li>
+<li>只有操作数是非可空值类型才会被提升。</li>
+<li>对于一元和二元操作符（除相等关系操作符），返回结果必须是非可空值类型。</li>
+<li>对于相等和关系操作符，返回类型必须是<code>bool</code></li>
+<li>对于<code>bool?</code>的<code>&amp;</code>和<code>|</code>操作方式有单独定义。</li>
+</ul>
+<h2 id="可空逻辑"><a href="#可空逻辑" class="headerlink" title="可空逻辑"></a>可空逻辑</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">x</th>
+<th style="text-align:center">y</th>
+<th style="text-align:center">x&amp;y</th>
+<th style="text-align:center">x\</th>
+<th style="text-align:center">y</th>
+<th style="text-align:center">x^y</th>
+<th>!x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+</tr>
+</tbody>
+</table>
+<p>记忆方式，把<code>null</code>当成即可能是<code>true</code>也可能是<code>false</code>。如果计算结果两者均可，则为<code>null</code>。</p>
+<h2 id="as"><a href="#as" class="headerlink" title="as"></a>as</h2><p>以往<code>as</code>操作符只能用于引用类型，C# 2 中可以用于可空类型。其结果为可空类型的空值或有意义的值。</p>
+<h2 id=""><a href="#" class="headerlink" title="??"></a>??</h2><p>该操作符是二元操作符。求值<code>first ?? second</code>时，返回结果为:</p>
+<ol>
+<li>对<code>first</code>进行求值</li>
+<li>如果结果非空，则该结果为表达式结果</li>
+<li>否则求<code>second</code>的值，其结果为整个表达式结果</li>
+</ol>
+<h1 id="一个可空类型的常用例子"><a href="#一个可空类型的常用例子" class="headerlink" title="一个可空类型的常用例子"></a>一个可空类型的常用例子</h1><p>产品按照多个要求排序，比如，产品先按流行度再按价格最后按名称排序。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// C# 1 代码</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Compare</span>(<span class="params">Product first, Product second</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 按照流行度从高到低排序</span></div><div class="line">    <span class="keyword">int</span> ret = second.Popularity.CompareTo(first.Popularity);</div><div class="line">    <span class="keyword">if</span> (ret != <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">    ret = first.Price.CompareTo(second.Price);</div><div class="line">    <span class="keyword">if</span> (ret != <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> first.Name.CompareTo(second.Name);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该代码处只单纯做了两个数据的比较，如果再加上空值判断逻辑，会让代码显得更加臃肿。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 采用可空类型的新型比较</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">PartialComparer</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>? Compare&lt;T&gt; (T first, T second)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> Compare(Comparer&lt;T&gt;.Default, first,second);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>? Compare&lt;T&gt; (IComparer&lt;T&gt; comparer, T first, T second)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> ret = comparer.Compare(first, second);</div><div class="line">        <span class="keyword">return</span> ret == <span class="number">0</span> ? <span class="keyword">new</span> <span class="keyword">int</span>?() : ret;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>? ReferenceCompare&lt;T&gt; (T first, T second) <span class="keyword">where</span> T : <span class="keyword">class</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> first == second ? <span class="number">0</span></div><div class="line">            :  first == <span class="literal">null</span> ? <span class="number">-1</span></div><div class="line">            :  second == <span class="literal">null</span> ? <span class="number">1</span></div><div class="line">            : <span class="keyword">new</span> <span class="keyword">int</span>?();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 具体比较</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Compare</span>(<span class="params">Product first, Product second</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> PartialComparer.ReferenceCompare(first, second) ??</div><div class="line">            <span class="comment">//流行度从高到低排序</span></div><div class="line">            PartialComparer.Compare(second.Popularity, first.Popularity) ??</div><div class="line">            PartialComparer.comparer(first.Price, second.Price) ??</div><div class="line">            PartialComparer.Compare(first.Name, second.Name) ??</div><div class="line">            <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
     
     <summary type="html">
+    
+      &lt;h1 id=&quot;Nullable&quot;&gt;&lt;a href=&quot;#Nullable&quot; class=&quot;headerlink&quot; title=&quot;Nullable&quot;&gt;&lt;/a&gt;Nullable&lt;t&gt;&lt;/t&gt;&lt;/h1&gt;&lt;p&gt;首先，它是一个泛型。类型参数&lt;code&gt;T&lt;/code&gt;有一个值类型约束，另外
     
     </summary>
     
@@ -40,7 +169,7 @@
     <link href="http://iskcal.github.io/2017/03/17/CSharp%20In%20Depth/3-Parameterized-typing-with-generics/"/>
     <id>http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/</id>
     <published>2017-03-17T13:34:53.000Z</published>
-    <updated>2017-03-18T02:58:06.953Z</updated>
+    <updated>2017-03-18T03:05:07.330Z</updated>
     
     <content type="html"><![CDATA[<h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><p>泛型有两种形式：泛型类型（包括类、接口、委托和结构——没有泛型枚举）和泛型方法。</p>
 <p><em>类型参数</em>可以看成是真实类型的占位符，一旦确定了泛型的具体类型，即使用了真实的类型代替后，无法向该泛型中添加其他类型的数据。这些真实的类型被称为<em>类型实参</em>。</p>
@@ -65,7 +194,7 @@
 </ol>
 <h2 id="引用类型约束"><a href="#引用类型约束" class="headerlink" title="引用类型约束"></a>引用类型约束</h2><p>保证使用的类型实参必须是引用类型，该约束必须是类型参数指定的第一个约束。</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> RefSample&lt;T&gt; <span class="keyword">where</span> T : <span class="keyword">class</span></div></pre></td></tr></table></figure>
-<h2 id="值类型约束"><a href="#值类型约束" class="headerlink" title="值类型约束"></a>值类型约束</h2><p>保证使用的类型实参必须是值类型，包括枚举。但是它把可空类型排除在外。</p>
+<h2 id="值类型约束"><a href="#值类型约束" class="headerlink" title="值类型约束"></a>值类型约束</h2><p>保证使用的类型实参必须是值类型，包括枚举。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class ValSample&lt;T&gt; where T : struct</div></pre></td></tr></table></figure>
 <h2 id="构造函数类型约束"><a href="#构造函数类型约束" class="headerlink" title="构造函数类型约束"></a>构造函数类型约束</h2><p>它是所有类型参数的最后一个约束，它检查类型实参是否具有无参构造函数。这适用于所有值类型；没有显式声明构造函数的非静态、非抽象类；所有显式声明了一个公共无参构造函数的非抽象类。</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> T CreateInstance&lt;T&gt;() <span class="keyword">where</span> T: <span class="keyword">new</span>()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> T();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -312,7 +441,7 @@
     <link href="http://iskcal.github.io/2017/02/27/CSharp%20In%20Depth/0-Abstract/"/>
     <id>http://iskcal.github.io/2017/02/27/CSharp In Depth/0-Abstract/</id>
     <published>2017-02-27T02:49:56.000Z</published>
-    <updated>2017-03-04T12:37:31.000Z</updated>
+    <updated>2017-03-18T03:03:48.918Z</updated>
     
     <content type="html"><![CDATA[<p>这是我第一次开始尝试正式阅读一本书，嗯，以前多多少少看过一点书，但是经常看不了多少就放弃了，总觉得自己看不进去，也不能坚持下来。这次索性就边看边记录，看看自己能坚持多久。所谓好记性不如烂笔头，只看不写确实让人提不起什么兴趣。好了废话不多说，正式开始吧。</p>
 <p>本书主要讲解的是C# 2及后续版本的更新要素。当初微软在创建C#之时，是以Java为蓝本抄袭过来的，因而C# 1的大多数功能和Java类似，之后便从C# 2开始加入了一系列的新特性和新功能，新的内容便是本书着重讲解的部分。</p>
@@ -321,7 +450,7 @@
 <h1 id="第一部分：基础知识"><a href="#第一部分：基础知识" class="headerlink" title="第一部分：基础知识"></a>第一部分：基础知识</h1><p>这一部分主要讲述了C#的一些基础性知识以及C# 1中的概念，这是为后续的C# 版本做铺垫。</p>
 <p><a href="/2017/02/27/CSharp%20In%20Depth/1-The-changing-face-of-CSharp-development/">第一章: C#进化史</a><br><a href="/2017/03/04/CSharp%20In%20Depth/2-Core-foundations-building-on-CSharp/">第二章：C# 1 所搭建的核心基础</a></p>
 <h1 id="第二部分：解决C-1-中的问题"><a href="#第二部分：解决C-1-中的问题" class="headerlink" title="第二部分：解决C# 1 中的问题"></a>第二部分：解决C# 1 中的问题</h1><p>这一部分主要讲述了C# 2 中的几个重大新特点：泛型、可空类型、委托、迭代器以及其他小特性</p>
-<p>[第三章：用泛型实现参数化类型][3]<br>[第四章：可空类型][4]<br>[第五章：进入快速通道的委托][5]<br>[第六章：实现迭代器的捷径][6]<br>[第七章：结束C# 2的讲解：最后一些特性][7]</p>
+<p><a href="/2017/03/17/CSharp%20In%20Depth/3-Parameterized-typing-with-generics/">第三章：用泛型实现参数化类型</a><br><a href="/2017/03/18/CSharp%20In%20Depth/4-Saying-nothing-with-nullable-types/">第四章：可空类型</a><br>[第五章：进入快速通道的委托][5]<br>[第六章：实现迭代器的捷径][6]<br>[第七章：结束C# 2的讲解：最后一些特性][7]</p>
 <h1 id="第三部分：-C-3：革新写代码的方式"><a href="#第三部分：-C-3：革新写代码的方式" class="headerlink" title="第三部分： C# 3：革新写代码的方式"></a>第三部分： C# 3：革新写代码的方式</h1><p>这一部分整个C# 3 基本在围绕着Linq所服务的，并且其中很多特性在Linq之外也可以使用</p>
 <p>[第八章：用智能的编译器来防错][8]<br>[第九章：Lambda表达式和表达式树][9]</p>
 ]]></content>

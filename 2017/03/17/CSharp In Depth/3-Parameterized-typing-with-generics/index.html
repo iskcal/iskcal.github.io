@@ -30,7 +30,7 @@
 <meta property="og:description" content="泛型泛型有两种形式：泛型类型（包括类、接口、委托和结构——没有泛型枚举）和泛型方法。
 类型参数可以看成是真实类型的占位符，一旦确定了泛型的具体类型，即使用了真实的类型代替后，无法向该泛型中添加其他类型的数据。这些真实的类型被称为类型实参。
 如果没有为泛型类型参数提供类型实参，则该泛型是一个未绑定泛型类型。如果指定了类型实参，则该泛型是一个已构造类型。已构造类型可以是开放或封闭的。开放类型还包含一个">
-<meta property="og:updated_time" content="2017-03-18T02:58:06.953Z">
+<meta property="og:updated_time" content="2017-03-18T03:05:07.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解C#第三章：用泛型实现参数化类型">
 <meta name="twitter:description" content="泛型泛型有两种形式：泛型类型（包括类、接口、委托和结构——没有泛型枚举）和泛型方法。
@@ -197,7 +197,7 @@
 </ol>
 <h2 id="引用类型约束"><a href="#引用类型约束" class="headerlink" title="引用类型约束"></a>引用类型约束</h2><p>保证使用的类型实参必须是引用类型，该约束必须是类型参数指定的第一个约束。</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> RefSample&lt;T&gt; <span class="keyword">where</span> T : <span class="keyword">class</span></div></pre></td></tr></table></figure>
-<h2 id="值类型约束"><a href="#值类型约束" class="headerlink" title="值类型约束"></a>值类型约束</h2><p>保证使用的类型实参必须是值类型，包括枚举。但是它把可空类型排除在外。</p>
+<h2 id="值类型约束"><a href="#值类型约束" class="headerlink" title="值类型约束"></a>值类型约束</h2><p>保证使用的类型实参必须是值类型，包括枚举。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class ValSample&lt;T&gt; where T : struct</div></pre></td></tr></table></figure>
 <h2 id="构造函数类型约束"><a href="#构造函数类型约束" class="headerlink" title="构造函数类型约束"></a>构造函数类型约束</h2><p>它是所有类型参数的最后一个约束，它检查类型实参是否具有无参构造函数。这适用于所有值类型；没有显式声明构造函数的非静态、非抽象类；所有显式声明了一个公共无参构造函数的非抽象类。</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> T CreateInstance&lt;T&gt;() <span class="keyword">where</span> T: <span class="keyword">new</span>()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> T();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -223,7 +223,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-03-18T02:58:06.953Z" itemprop="dateUpdated">2017年3月18日 10:58</time>
+    最后更新时间：<time datetime="2017-03-18T03:05:07.330Z" itemprop="dateUpdated">2017年3月18日 11:05</time>
 </span><br>
 
 

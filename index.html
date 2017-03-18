@@ -164,7 +164,9 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        
+        Nullable首先，它是一个泛型。类型参数T有一个值类型约束，另外，它不能是另一个可空类型，毕竟这是没有意义的。T也被称为基础类型。
+Nullable&lt;T&gt;最重要的是两个属性HasValue和Value。前者表示该值是否为空，它是一个Boolean属性，后者表示如果有值，值为多少。
+Nullable&lt;T&gt;有一个GetValueOrDefault的方法，它有两个重载。...
     
 
         <a href="/2017/03/18/CSharp In Depth/4-Saying-nothing-with-nullable-types/" class="post-more waves-effect waves-button">

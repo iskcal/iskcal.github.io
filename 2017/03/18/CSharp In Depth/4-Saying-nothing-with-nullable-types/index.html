@@ -20,13 +20,22 @@
     
     
     <meta name="keywords" content="C#,读书笔记">
-    <meta property="og:type" content="article">
+    <meta name="description" content="Nullable首先，它是一个泛型。类型参数T有一个值类型约束，另外，它不能是另一个可空类型，毕竟这是没有意义的。T也被称为基础类型。
+Nullable&amp;lt;T&amp;gt;最重要的是两个属性HasValue和Value。前者表示该值是否为空，它是一个Boolean属性，后者表示如果有值，值为多少。
+Nullable&amp;lt;T&amp;gt;有一个GetValueOrDefault的方法，它有两个重载。其主要">
+<meta property="og:type" content="article">
 <meta property="og:title" content="深入理解C#第四章：可空类型">
 <meta property="og:url" content="http://iskcal.github.io/2017/03/18/CSharp In Depth/4-Saying-nothing-with-nullable-types/index.html">
 <meta property="og:site_name" content="ThinLin">
-<meta property="og:updated_time" content="2017-03-18T03:02:08.750Z">
+<meta property="og:description" content="Nullable首先，它是一个泛型。类型参数T有一个值类型约束，另外，它不能是另一个可空类型，毕竟这是没有意义的。T也被称为基础类型。
+Nullable&amp;lt;T&amp;gt;最重要的是两个属性HasValue和Value。前者表示该值是否为空，它是一个Boolean属性，后者表示如果有值，值为多少。
+Nullable&amp;lt;T&amp;gt;有一个GetValueOrDefault的方法，它有两个重载。其主要">
+<meta property="og:updated_time" content="2017-03-18T04:56:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解C#第四章：可空类型">
+<meta name="twitter:description" content="Nullable首先，它是一个泛型。类型参数T有一个值类型约束，另外，它不能是另一个可空类型，毕竟这是没有意义的。T也被称为基础类型。
+Nullable&amp;lt;T&amp;gt;最重要的是两个属性HasValue和Value。前者表示该值是否为空，它是一个Boolean属性，后者表示如果有值，值为多少。
+Nullable&amp;lt;T&amp;gt;有一个GetValueOrDefault的方法，它有两个重载。其主要">
     
         <link rel="alternative" href="/atom.xml" title="ThinLin" type="application/atom+xml">
     
@@ -139,6 +148,13 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Nullable"><span class="post-toc-number">1.</span> <span class="post-toc-text">Nullable</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#装箱和拆箱"><span class="post-toc-number">2.</span> <span class="post-toc-text">装箱和拆箱</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#装箱"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">装箱</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#拆箱"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">拆箱</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#相等性"><span class="post-toc-number">3.</span> <span class="post-toc-text">相等性</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Nullable-1"><span class="post-toc-number">4.</span> <span class="post-toc-text">Nullable</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#语法糖"><span class="post-toc-number">5.</span> <span class="post-toc-text">语法糖</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修饰符"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">?修饰符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#null比较和赋值"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">null比较和赋值</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可空类型转换"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">可空类型转换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可空逻辑"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">可空逻辑</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#as"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">as</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">??</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一个可空类型的常用例子"><span class="post-toc-number">6.</span> <span class="post-toc-text">一个可空类型的常用例子</span></a></li></ol>
+        </nav>
+    </aside>
+    
 <article id="post-CSharp In Depth/4-Saying-nothing-with-nullable-types"
   class="post-article article-type-post fade" itemprop="blogPost">
 
@@ -158,14 +174,139 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <h1 id="Nullable"><a href="#Nullable" class="headerlink" title="Nullable"></a>Nullable<t></t></h1><p>首先，它是一个泛型。类型参数<code>T</code>有一个值类型约束，另外，它不能是另一个可空类型，毕竟这是没有意义的。<code>T</code>也被称为基础类型。</p>
+<p><code>Nullable&lt;T&gt;</code>最重要的是两个属性<code>HasValue</code>和<code>Value</code>。前者表示该值是否为空，它是一个<code>Boolean</code>属性，后者表示如果有值，值为多少。</p>
+<p><code>Nullable&lt;T&gt;</code>有一个<code>GetValueOrDefault</code>的方法，它有两个重载。其主要作用是如果存在值，则返回该值，否则返回一个默认值。</p>
+<h1 id="装箱和拆箱"><a href="#装箱和拆箱" class="headerlink" title="装箱和拆箱"></a>装箱和拆箱</h1><p>可空类型还是一个值类型，因此也存在装箱和拆箱的问题。但可空类型的装箱和拆箱和其他的值类型有很大的区别。</p>
+<h2 id="装箱"><a href="#装箱" class="headerlink" title="装箱"></a>装箱</h2><p>如果可空类型是空值，则装箱后是一个空引用。如果可空类型非空，则按照正常的装箱步骤装箱。</p>
+<h2 id="拆箱"><a href="#拆箱" class="headerlink" title="拆箱"></a>拆箱</h2><p>如果是空引用，拆箱成普通类型会抛出<code>NullReferenceException</code>异常，但拆成可空类型则会形成没有值的实例。如果是已装箱的值，则既可以拆成普通类型，也可以拆成对应的可空类型。</p>
+<h1 id="相等性"><a href="#相等性" class="headerlink" title="相等性"></a>相等性</h1><p><code>Nullable&lt;T&gt;</code>覆盖了<code>object.Equals(object)</code>。因此关于可空类型的相等判断也会出现一些变化，具体表现在调用<code>first.Equals(second)</code>上：</p>
+<ul>
+<li>如果<code>first</code>没有值，<code>second</code>为<code>null</code>，它们就是相等的</li>
+<li>如果<code>first</code>没有值，<code>second</code>不为<code>null</code>，它们就是不等的</li>
+<li>如果<code>first</code>有值，<code>second</code>为<code>null</code>，它们就是不等的</li>
+<li>如果<code>first</code>的值等于<code>second</code>值，它们就是相等的</li>
+</ul>
+<p>这里对于<code>second</code>不用再考虑是否为可空类型的情况，因为做比较时，<code>Equals</code>函数只接受<code>object</code>对象，如果<code>second</code>是可空类型，则是以装箱的形式传入的，即要么为<code>null</code>要么不为空。</p>
+<h1 id="Nullable-1"><a href="#Nullable-1" class="headerlink" title="Nullable"></a>Nullable</h1><p><code>Nullable</code>是一个静态类，包含三个静态函数，前两个是泛型方法，用于比较。第三个是普通方法，用于获取可空类型的基础类型。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Type <span class="title">GetUnderlyingType</span>(<span class="params">Type nullableType</span>)</span></div></pre></td></tr></table></figure>
+<h1 id="语法糖"><a href="#语法糖" class="headerlink" title="语法糖"></a>语法糖</h1><h2 id="修饰符"><a href="#修饰符" class="headerlink" title="?修饰符"></a>?修饰符</h2><p>简写修饰符，只是把相应的<code>Nullable&lt;T&gt;</code>简写成<code>T?</code>。</p>
+<h2 id="null比较和赋值"><a href="#null比较和赋值" class="headerlink" title="null比较和赋值"></a>null比较和赋值</h2><p>之前说过可以把可空类型与<code>null</code>直接比较。不仅可以比较，也可以直接赋值，赋值为<code>null</code>意味着该可空类型没有值。</p>
+<h2 id="可空类型转换"><a href="#可空类型转换" class="headerlink" title="可空类型转换"></a>可空类型转换</h2><p>当非可空的值类型<code>T</code>重载了操作符后，可空类型<code>T?</code>自动便拥有了相同的操作符，但其操作数和结果类型不同，这被称为提升转换。</p>
+<ul>
+<li><code>true</code>和<code>false</code>操作符永远不会提升。</li>
+<li>只有操作数是非可空值类型才会被提升。</li>
+<li>对于一元和二元操作符（除相等关系操作符），返回结果必须是非可空值类型。</li>
+<li>对于相等和关系操作符，返回类型必须是<code>bool</code></li>
+<li>对于<code>bool?</code>的<code>&amp;</code>和<code>|</code>操作方式有单独定义。</li>
+</ul>
+<h2 id="可空逻辑"><a href="#可空逻辑" class="headerlink" title="可空逻辑"></a>可空逻辑</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">x</th>
+<th style="text-align:center">y</th>
+<th style="text-align:center">x&amp;y</th>
+<th style="text-align:center">x\</th>
+<th style="text-align:center">y</th>
+<th style="text-align:center">x^y</th>
+<th>!x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>true</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>false</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+<td style="text-align:center"><code>null</code></td>
+</tr>
+</tbody>
+</table>
+<p>记忆方式，把<code>null</code>当成即可能是<code>true</code>也可能是<code>false</code>。如果计算结果两者均可，则为<code>null</code>。</p>
+<h2 id="as"><a href="#as" class="headerlink" title="as"></a>as</h2><p>以往<code>as</code>操作符只能用于引用类型，C# 2 中可以用于可空类型。其结果为可空类型的空值或有意义的值。</p>
+<h2 id=""><a href="#" class="headerlink" title="??"></a>??</h2><p>该操作符是二元操作符。求值<code>first ?? second</code>时，返回结果为:</p>
+<ol>
+<li>对<code>first</code>进行求值</li>
+<li>如果结果非空，则该结果为表达式结果</li>
+<li>否则求<code>second</code>的值，其结果为整个表达式结果</li>
+</ol>
+<h1 id="一个可空类型的常用例子"><a href="#一个可空类型的常用例子" class="headerlink" title="一个可空类型的常用例子"></a>一个可空类型的常用例子</h1><p>产品按照多个要求排序，比如，产品先按流行度再按价格最后按名称排序。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// C# 1 代码</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Compare</span>(<span class="params">Product first, Product second</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 按照流行度从高到低排序</span></div><div class="line">    <span class="keyword">int</span> ret = second.Popularity.CompareTo(first.Popularity);</div><div class="line">    <span class="keyword">if</span> (ret != <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">    ret = first.Price.CompareTo(second.Price);</div><div class="line">    <span class="keyword">if</span> (ret != <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> first.Name.CompareTo(second.Name);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该代码处只单纯做了两个数据的比较，如果再加上空值判断逻辑，会让代码显得更加臃肿。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 采用可空类型的新型比较</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">PartialComparer</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>? Compare&lt;T&gt; (T first, T second)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> Compare(Comparer&lt;T&gt;.Default, first,second);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>? Compare&lt;T&gt; (IComparer&lt;T&gt; comparer, T first, T second)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> ret = comparer.Compare(first, second);</div><div class="line">        <span class="keyword">return</span> ret == <span class="number">0</span> ? <span class="keyword">new</span> <span class="keyword">int</span>?() : ret;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>? ReferenceCompare&lt;T&gt; (T first, T second) <span class="keyword">where</span> T : <span class="keyword">class</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> first == second ? <span class="number">0</span></div><div class="line">            :  first == <span class="literal">null</span> ? <span class="number">-1</span></div><div class="line">            :  second == <span class="literal">null</span> ? <span class="number">1</span></div><div class="line">            : <span class="keyword">new</span> <span class="keyword">int</span>?();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 具体比较</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Compare</span>(<span class="params">Product first, Product second</span>)</span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> PartialComparer.ReferenceCompare(first, second) ??</div><div class="line">            <span class="comment">//流行度从高到低排序</span></div><div class="line">            PartialComparer.Compare(second.Popularity, first.Popularity) ??</div><div class="line">            PartialComparer.comparer(first.Price, second.Price) ??</div><div class="line">            PartialComparer.Compare(first.Name, second.Name) ??</div><div class="line">            <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
         </div>
 
         <blockquote class="post-copyright">
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-03-18T03:02:08.750Z" itemprop="dateUpdated">2017年3月18日 11:02</time>
+    最后更新时间：<time datetime="2017-03-18T04:56:37.000Z" itemprop="dateUpdated">2017年3月18日 12:56</time>
 </span><br>
 
 
