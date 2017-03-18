@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>深入理解C#第三章：用泛型实现参数化类型 | ThinLin | 意义大于目的</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="C#,读书笔记">
+    <meta name="description" content="泛型泛型有两种形式：泛型类型（包括类、接口、委托和结构——没有泛型枚举）和泛型方法。
+类型参数可以看成是真实类型的占位符，一旦确定了泛型的具体类型，即使用了真实的类型代替后，无法向该泛型中添加其他类型的数据。这些真实的类型被称为类型实参。
+如果没有为泛型类型参数提供类型实参，则该泛型是一个未绑定泛型类型。如果指定了类型实参，则该泛型是一个已构造类型。已构造类型可以是开放或封闭的。开放类型还包含一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解C#第三章：用泛型实现参数化类型">
+<meta property="og:url" content="http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/index.html">
+<meta property="og:site_name" content="ThinLin">
+<meta property="og:description" content="泛型泛型有两种形式：泛型类型（包括类、接口、委托和结构——没有泛型枚举）和泛型方法。
+类型参数可以看成是真实类型的占位符，一旦确定了泛型的具体类型，即使用了真实的类型代替后，无法向该泛型中添加其他类型的数据。这些真实的类型被称为类型实参。
+如果没有为泛型类型参数提供类型实参，则该泛型是一个未绑定泛型类型。如果指定了类型实参，则该泛型是一个已构造类型。已构造类型可以是开放或封闭的。开放类型还包含一个">
+<meta property="og:updated_time" content="2017-03-18T02:52:01.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解C#第三章：用泛型实现参数化类型">
+<meta name="twitter:description" content="泛型泛型有两种形式：泛型类型（包括类、接口、委托和结构——没有泛型枚举）和泛型方法。
+类型参数可以看成是真实类型的占位符，一旦确定了泛型的具体类型，即使用了真实的类型代替后，无法向该泛型中添加其他类型的数据。这些真实的类型被称为类型实参。
+如果没有为泛型类型参数提供类型实参，则该泛型是一个未绑定泛型类型。如果指定了类型实参，则该泛型是一个已构造类型。已构造类型可以是开放或封闭的。开放类型还包含一个">
+    
+        <link rel="alternative" href="/atom.xml" title="ThinLin" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Iskcal</h5>
+          <a href="mailto:linlb428@sohu.com" title="linlb428@sohu.com" class="mail">linlb428@sohu.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Blog
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">深入理解C#第三章：用泛型实现参数化类型</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">深入理解C#第三章：用泛型实现参数化类型</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-03-17T13:34:53.000Z" itemprop="datePublished" class="page-time">
+  2017-03-17
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#泛型"><span class="post-toc-number">1.</span> <span class="post-toc-text">泛型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#泛型方法"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">泛型方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#泛型约束"><span class="post-toc-number">2.</span> <span class="post-toc-text">泛型约束</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引用类型约束"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">引用类型约束</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#值类型约束"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">值类型约束</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#构造函数类型约束"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">构造函数类型约束</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#转换类型约束"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">转换类型约束</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#组合约束"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">组合约束</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#类型推断"><span class="post-toc-number">3.</span> <span class="post-toc-text">类型推断</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#默认值表达式"><span class="post-toc-number">4.</span> <span class="post-toc-text">默认值表达式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#静态泛型字段"><span class="post-toc-number">5.</span> <span class="post-toc-text">静态泛型字段</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#JIT对泛型的处理"><span class="post-toc-number">6.</span> <span class="post-toc-text">JIT对泛型的处理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#泛型和反射"><span class="post-toc-number">7.</span> <span class="post-toc-text">泛型和反射</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#typeof-关键字"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">typeof 关键字</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#反射操作泛型对象"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">反射操作泛型对象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#反射操作泛型方法"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">反射操作泛型方法</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#缺陷"><span class="post-toc-number">8.</span> <span class="post-toc-text">缺陷</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#协变和逆变"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">协变和逆变</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#缺乏操作符约束"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">缺乏操作符约束</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-CSharp In Depth/3-Parameterized-typing-with-generics"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">深入理解C#第三章：用泛型实现参数化类型</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年03月17日 21:34" datetime="2017-03-17T13:34:53.000Z"  itemprop="datePublished">2017-03-17</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+
+
+            
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><p>泛型有两种形式：泛型类型（包括类、接口、委托和结构——没有泛型枚举）和泛型方法。</p>
+<p><strong>类型参数</strong>可以看成是真实类型的占位符，一旦确定了泛型的具体类型，即使用了真实的类型代替后，无法向该泛型中添加其他类型的数据。这些真实的类型被称为<strong>类型实参</strong>。</p>
+<p>如果没有为泛型类型参数提供类型实参，则该泛型是一个<strong>未绑定泛型类型</strong>。如果指定了类型实参，则该泛型是一个<strong>已构造类型</strong>。已构造类型可以是开放或封闭的。<strong>开放类型</strong>还包含一个类型参数。而<strong>封闭类型</strong>则不是开放的。</p>
+<h2 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h2><p>泛型方法是在函数名后使用尖括号来表示。比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;TOutput&gt; ConvertAll&lt;TOutput&gt;(Converter&lt;T, TOutput&gt; conv)</div></pre></td></tr></table></figure>
+<p>这里，似乎看的并不是很清楚。这里把它转换成一个具体类型。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">List&lt;Guid&gt; <span class="title">ConvertAll</span>(<span class="params">Converter&lt;<span class="keyword">string</span>, Guid&gt; conv</span>)</span></div></pre></td></tr></table></figure>
+<p>现在，这个泛型方法中的所有类型参数都已经用类型实参替代了。这个方法看起来就非常明了。</p>
+<ul>
+<li>方法返回一个<code>List&lt;Guid&gt;</code></li>
+<li>方法名是<code>ConvertAll</code></li>
+<li>方法只有一个参数，该参数是名为conv的一个<code>Converter&lt;string, Giud&gt;</code></li>
+</ul>
+<p>从各个名称可以看出，这个函数是可以把一组<code>string</code>数据转化成<code>Guid</code>数据。</p>
+<h1 id="泛型约束"><a href="#泛型约束" class="headerlink" title="泛型约束"></a>泛型约束</h1><p>参数类型<code>T</code>是可以被约束的。即可以用约束来对<code>T</code>进行限制。在C# 中有4种约束。</p>
+<ol>
+<li>引用类型约束</li>
+<li>值类型约束</li>
+<li>构造函数类型约束</li>
+<li>转换类型约束</li>
+</ol>
+<h2 id="引用类型约束"><a href="#引用类型约束" class="headerlink" title="引用类型约束"></a>引用类型约束</h2><p>保证使用的类型实参必须是引用类型，该约束必须是类型参数指定的第一个约束。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> RefSample&lt;T&gt; <span class="keyword">where</span> T : <span class="keyword">class</span></div></pre></td></tr></table></figure>
+<h2 id="值类型约束"><a href="#值类型约束" class="headerlink" title="值类型约束"></a>值类型约束</h2><p>保证使用的类型实参必须是值类型，包括枚举。但是它把可空类型排除在外。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class ValSample&lt;T&gt; where T : struct</div></pre></td></tr></table></figure>
+<h2 id="构造函数类型约束"><a href="#构造函数类型约束" class="headerlink" title="构造函数类型约束"></a>构造函数类型约束</h2><p>它是所有类型参数的最后一个约束，它检查类型实参是否具有无参构造函数。这适用于所有值类型；没有显式声明构造函数的非静态、非抽象类；所有显式声明了一个公共无参构造函数的非抽象类。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> T CreateInstance&lt;T&gt;() <span class="keyword">where</span> T: <span class="keyword">new</span>()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> T();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="转换类型约束"><a href="#转换类型约束" class="headerlink" title="转换类型约束"></a>转换类型约束</h2><p>这种约束允许你指定另一个类型，类型实参必须通过一致性、引用或装箱转换隐式地转换为该类型。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class Sample&lt;T&gt; where T : Stream</div><div class="line">//所有Steam的派生类才可以做该类的类型实参</div></pre></td></tr></table></figure>
+<h2 id="组合约束"><a href="#组合约束" class="headerlink" title="组合约束"></a>组合约束</h2><p>可以配合上述4种约束进行组合，但注意的是引用、值类型约束必须是第一个，构造函数约束必须是最后一个。</p>
+<h1 id="类型推断"><a href="#类型推断" class="headerlink" title="类型推断"></a>类型推断</h1><p>调用泛型方法时，指定类型实参有时会显得很多余，故有时可以不需要显式声明类型实参。类型推断只适用于泛型方法。</p>
+<h1 id="默认值表达式"><a href="#默认值表达式" class="headerlink" title="默认值表达式"></a>默认值表达式</h1><p>对于类型参数来说，有时候希望给其赋初值。但是往往会因为不同的类型实参，其初值也不尽相同。</p>
+<p>使用<code>default</code>关键字来获取初值，即<code>default(T)</code>所返回的就是类型<code>T</code>的初值。</p>
+<h1 id="静态泛型字段"><a href="#静态泛型字段" class="headerlink" title="静态泛型字段"></a>静态泛型字段</h1><p>如果一个泛型类有静态字段集，那么对于不同的封闭类型均有其自己的静态字段集。这样的规则也适用于静态初始化程序和静态构造函数。</p>
+<h1 id="JIT对泛型的处理"><a href="#JIT对泛型的处理" class="headerlink" title="JIT对泛型的处理"></a>JIT对泛型的处理</h1><p>对于不同的封闭类型，JIT则是将泛型类型的IL代码转换成本地代码，使其能真正运行起来。</p>
+<p>具体的处理规则是：首先，所有的引用类型作为类型实参的封闭类型共享相同的本地代码，究其原因是所有的引用类型在栈上保存的只是它的引用，即4个字节（32位CLR）或8个字节（64位CLR）。其次，所有的值类型作为类型实参的封闭类型都会创建不同的代码。但是，JIT采用的是“懒人”原则，即只有当使用到对应的封闭类型才进行创建相关代码，一旦生成，就会缓存起来，以备下次使用。</p>
+<h1 id="泛型和反射"><a href="#泛型和反射" class="headerlink" title="泛型和反射"></a>泛型和反射</h1><h2 id="typeof-关键字"><a href="#typeof-关键字" class="headerlink" title="typeof 关键字"></a>typeof 关键字</h2><p><code>typeof</code>关键字可用于获取某个类的类型，它返回的是<code>System.Type</code>对象的引用。在泛型中，既可以获取未绑定泛型的类型，也可以获取已构造类型的类型。要想获取未绑定泛型的类型，则不能带入相关的类型参数。比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> DemonstrateType&lt;X&gt;()</div><div class="line">&#123;</div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(X));</div><div class="line"></div><div class="line">    <span class="comment">// 未绑定的类型</span></div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(List&lt;&gt;));</div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(Dictionary&lt;,&gt;));</div><div class="line"></div><div class="line">    <span class="comment">// 开放类型</span></div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(List&lt;X&gt;));</div><div class="line"></div><div class="line">    <span class="comment">// 半开放类型</span></div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(Dictionary&lt;<span class="keyword">string</span>, X&gt;));</div><div class="line"></div><div class="line">    <span class="comment">// 封闭类型</span></div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(List&lt;<span class="keyword">long</span>&gt;));</div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(Dictionary&lt;<span class="keyword">long</span>, Guid&gt;));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="反射操作泛型对象"><a href="#反射操作泛型对象" class="headerlink" title="反射操作泛型对象"></a>反射操作泛型对象</h2><p>在<code>System.Type</code>中，<code>GetGenericTypeDefinition</code>方法作用于已构造的类型，来获取它的泛型类型定义；<code>MakeGenericType</code>方法作用于泛型类型定义，返回一个已构造的类型。注意<code>GetGenericTypeDefinition</code>方法对两个相同的泛型类型定义构造出不同的封闭类型做操作，其返回结果是相同的，比如<code>List&lt;int&gt;</code>和<code>List&lt;string&gt;</code>数据。</p>
+<h2 id="反射操作泛型方法"><a href="#反射操作泛型方法" class="headerlink" title="反射操作泛型方法"></a>反射操作泛型方法</h2><p>首先要获取泛型方法的定义，然后通过<code>MakeGenericMethod</code>来返回一个已构造的泛型方法。但有一点缺陷的是，针对只是类型参数数量不同的多个重载方法，没有直接的方式来获取指定类型参数数量的方法，通常只能获取所有的方法，然后再一步步找。</p>
+<h1 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h1><h2 id="协变和逆变"><a href="#协变和逆变" class="headerlink" title="协变和逆变"></a>协变和逆变</h2><p>数组具有协变和逆变的，但是在 C# 2 中泛型并不具有相应的协变和逆变。直到 C# 4 中才具有了受限的协变和逆变。</p>
+<h2 id="缺乏操作符约束"><a href="#缺乏操作符约束" class="headerlink" title="缺乏操作符约束"></a>缺乏操作符约束</h2><p>由于C#中操作符重载是以静态函数的形式出现的，因此目前来说，还没有操作符约束。这点在科学计算中很常见。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-03-18T02:52:01.768Z" itemprop="dateUpdated">2017年3月18日 10:52</time>
+</span><br>
+
+
+        这里写留言或版权声明：<a href="/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/" target="_blank" rel="external">http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/</a>
+    </div>
+    <footer>
+        <a href="http://iskcal.github.io">
+            <img src="/img/avatar.jpg" alt="Iskcal">
+            Iskcal
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/&title=《深入理解C#第三章：用泛型实现参数化类型》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/&title=《深入理解C#第三章：用泛型实现参数化类型》 — ThinLin&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入理解C#第三章：用泛型实现参数化类型》 — ThinLin&url=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/&via=http://iskcal.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/03/04/CSharp In Depth/2-Core-foundations-building-on-CSharp/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">深入理解C#第二章：C# 1 所搭建的核心基础</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+<div class="comments" id="comments">
+    <div class="ds-thread" data-thread-key="CSharp In Depth/3-Parameterized-typing-with-generics" data-title="深入理解C#第三章：用泛型实现参数化类型" data-url="http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/"></div>
+</div>
+<script>
+lazyScripts.push('//cdn.bootcss.com/marked/0.3.6/marked.min.js');
+
+var duoshuoQuery = {short_name:'iskcal', theme: 'none'};
+lazyScripts.push('/js/embed.min.js?v=1.4.7');
+
+
+</script>
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>ThinLin &copy; 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/&title=《深入理解C#第三章：用泛型实现参数化类型》 — ThinLin&pic=http://iskcal.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/&title=《深入理解C#第三章：用泛型实现参数化类型》 — ThinLin&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入理解C#第三章：用泛型实现参数化类型》 — ThinLin&url=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/&via=http://iskcal.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKElEQVR42u3aS5LiQAwFwL7/pZmI2RJtnqRiBov0qgO7XZXFQujz8xNfj7/X9d3nK3ny+fPknclaBy5sbGzsm7Afl9cz+3mZ35bPt3V9TPkniQUbGxt7K/t6yWvS9QLXn0/w11/PizdjY2NjfyX7OqTlCUbvOHrBFRsbGxu7t91qmSlf5b/FbWxsbOyPZ/fK8XkSUij3xIfyj2pp2NjY2B/PrjZ6P/nvN/a3sbGxsT+S/RhckzJQdeuPoxc2Njb2JnZ1sGbSgj2bnCTt5BcibGxs7BXs3gKTpkJ+ZO87YmxsbOxN7El7IN/EpCVwHZzy9AYbGxt7N7s6BNNrrCafJMeUH305D8PGxsa+Obu6xeoATe/IerDmyA42Njb2DdnJefRCVA/87i8AGxsbex87b/SWY2BQDHrHWE8hIcHGxsZeyk4CT96U7bVgTzUesLGxsb+HPS/WVIPHqRRoXqLCxsbG3sfORzCraUY1eZgM9JQTEmxsbOzbsnvhIV+yOkZTLV3lBalR7oWNjY39wex5AEuKPnlBfzIAlBSSjsVtbGxs7A9j52MxObXa0K02jCflKmxsbOx97DwgVcG9zfUGd5rpDTY2NvbN2ZOf8r1SVHXoJ1+90KjAxsbGXsTOSzz5gE4vFFWD3zyNwcbGxt7Bzl+Rh6JqW/dsUzlqNmBjY2MvZVdLSHnbIG8VVBvDvUYyNjY29j520hytphD5b/58JOindf2aimBjY2MvYlcThipyUsQ/1Wx4kYpgY2Nj35ZdLc2Xf/QHIzvVkJYkS9FXhY2Njb2Inbyi2ujNn++Fq7PpCjY2NvZWdu84TrV1e7vK72JjY2PvY+eMXgDrjdpMxoCiu9jY2NiL2MlD1RbC2TbDvNSFjY2NvY/dSzDy4FEdx8lXHP0XNjY29iJ2tX6e/523H/IQNTlEbGxs7N3satCq3j2VQiTHURgPwsbGxl7H7gWteYiqxtJjz2NjY2NjB92Gaumn1zaojoRiY2NjfzO7WojPedW6V3UPo1QEGxsb+ybsZBO94n4eupLne30PbGxs7N3sScm+t9HeO/OvpFrkwsbGxr4t+w+UN9SYwc5NJAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+
+</body>
+</html>

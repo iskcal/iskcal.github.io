@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://iskcal.github.io/"/>
-  <updated>2017-03-04T12:39:06.773Z</updated>
+  <updated>2017-03-18T02:52:01.768Z</updated>
   <id>http://iskcal.github.io/</id>
   
   <author>
@@ -14,6 +14,73 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深入理解C#第三章：用泛型实现参数化类型</title>
+    <link href="http://iskcal.github.io/2017/03/17/CSharp%20In%20Depth/3-Parameterized-typing-with-generics/"/>
+    <id>http://iskcal.github.io/2017/03/17/CSharp In Depth/3-Parameterized-typing-with-generics/</id>
+    <published>2017-03-17T13:34:53.000Z</published>
+    <updated>2017-03-18T02:52:01.768Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1><p>泛型有两种形式：泛型类型（包括类、接口、委托和结构——没有泛型枚举）和泛型方法。</p>
+<p><strong>类型参数</strong>可以看成是真实类型的占位符，一旦确定了泛型的具体类型，即使用了真实的类型代替后，无法向该泛型中添加其他类型的数据。这些真实的类型被称为<strong>类型实参</strong>。</p>
+<p>如果没有为泛型类型参数提供类型实参，则该泛型是一个<strong>未绑定泛型类型</strong>。如果指定了类型实参，则该泛型是一个<strong>已构造类型</strong>。已构造类型可以是开放或封闭的。<strong>开放类型</strong>还包含一个类型参数。而<strong>封闭类型</strong>则不是开放的。</p>
+<h2 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h2><p>泛型方法是在函数名后使用尖括号来表示。比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;TOutput&gt; ConvertAll&lt;TOutput&gt;(Converter&lt;T, TOutput&gt; conv)</div></pre></td></tr></table></figure>
+<p>这里，似乎看的并不是很清楚。这里把它转换成一个具体类型。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">List&lt;Guid&gt; <span class="title">ConvertAll</span>(<span class="params">Converter&lt;<span class="keyword">string</span>, Guid&gt; conv</span>)</span></div></pre></td></tr></table></figure>
+<p>现在，这个泛型方法中的所有类型参数都已经用类型实参替代了。这个方法看起来就非常明了。</p>
+<ul>
+<li>方法返回一个<code>List&lt;Guid&gt;</code></li>
+<li>方法名是<code>ConvertAll</code></li>
+<li>方法只有一个参数，该参数是名为conv的一个<code>Converter&lt;string, Giud&gt;</code></li>
+</ul>
+<p>从各个名称可以看出，这个函数是可以把一组<code>string</code>数据转化成<code>Guid</code>数据。</p>
+<h1 id="泛型约束"><a href="#泛型约束" class="headerlink" title="泛型约束"></a>泛型约束</h1><p>参数类型<code>T</code>是可以被约束的。即可以用约束来对<code>T</code>进行限制。在C# 中有4种约束。</p>
+<ol>
+<li>引用类型约束</li>
+<li>值类型约束</li>
+<li>构造函数类型约束</li>
+<li>转换类型约束</li>
+</ol>
+<h2 id="引用类型约束"><a href="#引用类型约束" class="headerlink" title="引用类型约束"></a>引用类型约束</h2><p>保证使用的类型实参必须是引用类型，该约束必须是类型参数指定的第一个约束。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> RefSample&lt;T&gt; <span class="keyword">where</span> T : <span class="keyword">class</span></div></pre></td></tr></table></figure>
+<h2 id="值类型约束"><a href="#值类型约束" class="headerlink" title="值类型约束"></a>值类型约束</h2><p>保证使用的类型实参必须是值类型，包括枚举。但是它把可空类型排除在外。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class ValSample&lt;T&gt; where T : struct</div></pre></td></tr></table></figure>
+<h2 id="构造函数类型约束"><a href="#构造函数类型约束" class="headerlink" title="构造函数类型约束"></a>构造函数类型约束</h2><p>它是所有类型参数的最后一个约束，它检查类型实参是否具有无参构造函数。这适用于所有值类型；没有显式声明构造函数的非静态、非抽象类；所有显式声明了一个公共无参构造函数的非抽象类。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> T CreateInstance&lt;T&gt;() <span class="keyword">where</span> T: <span class="keyword">new</span>()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> T();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="转换类型约束"><a href="#转换类型约束" class="headerlink" title="转换类型约束"></a>转换类型约束</h2><p>这种约束允许你指定另一个类型，类型实参必须通过一致性、引用或装箱转换隐式地转换为该类型。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class Sample&lt;T&gt; where T : Stream</div><div class="line">//所有Steam的派生类才可以做该类的类型实参</div></pre></td></tr></table></figure>
+<h2 id="组合约束"><a href="#组合约束" class="headerlink" title="组合约束"></a>组合约束</h2><p>可以配合上述4种约束进行组合，但注意的是引用、值类型约束必须是第一个，构造函数约束必须是最后一个。</p>
+<h1 id="类型推断"><a href="#类型推断" class="headerlink" title="类型推断"></a>类型推断</h1><p>调用泛型方法时，指定类型实参有时会显得很多余，故有时可以不需要显式声明类型实参。类型推断只适用于泛型方法。</p>
+<h1 id="默认值表达式"><a href="#默认值表达式" class="headerlink" title="默认值表达式"></a>默认值表达式</h1><p>对于类型参数来说，有时候希望给其赋初值。但是往往会因为不同的类型实参，其初值也不尽相同。</p>
+<p>使用<code>default</code>关键字来获取初值，即<code>default(T)</code>所返回的就是类型<code>T</code>的初值。</p>
+<h1 id="静态泛型字段"><a href="#静态泛型字段" class="headerlink" title="静态泛型字段"></a>静态泛型字段</h1><p>如果一个泛型类有静态字段集，那么对于不同的封闭类型均有其自己的静态字段集。这样的规则也适用于静态初始化程序和静态构造函数。</p>
+<h1 id="JIT对泛型的处理"><a href="#JIT对泛型的处理" class="headerlink" title="JIT对泛型的处理"></a>JIT对泛型的处理</h1><p>对于不同的封闭类型，JIT则是将泛型类型的IL代码转换成本地代码，使其能真正运行起来。</p>
+<p>具体的处理规则是：首先，所有的引用类型作为类型实参的封闭类型共享相同的本地代码，究其原因是所有的引用类型在栈上保存的只是它的引用，即4个字节（32位CLR）或8个字节（64位CLR）。其次，所有的值类型作为类型实参的封闭类型都会创建不同的代码。但是，JIT采用的是“懒人”原则，即只有当使用到对应的封闭类型才进行创建相关代码，一旦生成，就会缓存起来，以备下次使用。</p>
+<h1 id="泛型和反射"><a href="#泛型和反射" class="headerlink" title="泛型和反射"></a>泛型和反射</h1><h2 id="typeof-关键字"><a href="#typeof-关键字" class="headerlink" title="typeof 关键字"></a>typeof 关键字</h2><p><code>typeof</code>关键字可用于获取某个类的类型，它返回的是<code>System.Type</code>对象的引用。在泛型中，既可以获取未绑定泛型的类型，也可以获取已构造类型的类型。要想获取未绑定泛型的类型，则不能带入相关的类型参数。比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> DemonstrateType&lt;X&gt;()</div><div class="line">&#123;</div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(X));</div><div class="line"></div><div class="line">    <span class="comment">// 未绑定的类型</span></div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(List&lt;&gt;));</div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(Dictionary&lt;,&gt;));</div><div class="line"></div><div class="line">    <span class="comment">// 开放类型</span></div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(List&lt;X&gt;));</div><div class="line"></div><div class="line">    <span class="comment">// 半开放类型</span></div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(Dictionary&lt;<span class="keyword">string</span>, X&gt;));</div><div class="line"></div><div class="line">    <span class="comment">// 封闭类型</span></div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(List&lt;<span class="keyword">long</span>&gt;));</div><div class="line">    Console.WriteLine(<span class="keyword">typeof</span>(Dictionary&lt;<span class="keyword">long</span>, Guid&gt;));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="反射操作泛型对象"><a href="#反射操作泛型对象" class="headerlink" title="反射操作泛型对象"></a>反射操作泛型对象</h2><p>在<code>System.Type</code>中，<code>GetGenericTypeDefinition</code>方法作用于已构造的类型，来获取它的泛型类型定义；<code>MakeGenericType</code>方法作用于泛型类型定义，返回一个已构造的类型。注意<code>GetGenericTypeDefinition</code>方法对两个相同的泛型类型定义构造出不同的封闭类型做操作，其返回结果是相同的，比如<code>List&lt;int&gt;</code>和<code>List&lt;string&gt;</code>数据。</p>
+<h2 id="反射操作泛型方法"><a href="#反射操作泛型方法" class="headerlink" title="反射操作泛型方法"></a>反射操作泛型方法</h2><p>首先要获取泛型方法的定义，然后通过<code>MakeGenericMethod</code>来返回一个已构造的泛型方法。但有一点缺陷的是，针对只是类型参数数量不同的多个重载方法，没有直接的方式来获取指定类型参数数量的方法，通常只能获取所有的方法，然后再一步步找。</p>
+<h1 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h1><h2 id="协变和逆变"><a href="#协变和逆变" class="headerlink" title="协变和逆变"></a>协变和逆变</h2><p>数组具有协变和逆变的，但是在 C# 2 中泛型并不具有相应的协变和逆变。直到 C# 4 中才具有了受限的协变和逆变。</p>
+<h2 id="缺乏操作符约束"><a href="#缺乏操作符约束" class="headerlink" title="缺乏操作符约束"></a>缺乏操作符约束</h2><p>由于C#中操作符重载是以静态函数的形式出现的，因此目前来说，还没有操作符约束。这点在科学计算中很常见。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;泛型&quot;&gt;&lt;a href=&quot;#泛型&quot; class=&quot;headerlink&quot; title=&quot;泛型&quot;&gt;&lt;/a&gt;泛型&lt;/h1&gt;&lt;p&gt;泛型有两种形式：泛型类型（包括类、接口、委托和结构——没有泛型枚举）和泛型方法。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;类型参数&lt;/strong&gt;可
+    
+    </summary>
+    
+      <category term="技术" scheme="http://iskcal.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="C#" scheme="http://iskcal.github.io/tags/C/"/>
+    
+      <category term="读书笔记" scheme="http://iskcal.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>深入理解C#第二章：C# 1 所搭建的核心基础</title>
